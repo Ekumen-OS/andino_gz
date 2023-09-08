@@ -1,0 +1,16 @@
+laser:
+  mass: 0.1          # Motor mass in Kg
+  radius: 0.015     # Wheel radius in m
+  length: 0.01      # Wheel length in m, considering is as a cylinder
+  mesh: 'rplidar-a1.stl'  # Leave it empty ('') to have a red wheel
+  dx: 0.05
+  dy: 0.0
+  dz: 0.08
+
+camera:
+  mass: 0.1          # mass in Kg
+  box_size: 0.02
+  mesh: 'camera_mount.stl'  # If empty, it will be have a box as visual
+  dx: 0.085
+  dy: 0.0
+  dz: 0.025

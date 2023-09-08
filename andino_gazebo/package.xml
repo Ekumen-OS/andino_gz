@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>andino_gz</name>
+  <version>0.0.1</version>
+  <description>
+    Launch Gazebo simulation with andino robot.
+  </description>
+  <author email="leonardoneumarkt@ekumenlabs.com">Leonardo Neumarkt</author>
+  <maintainer email="leonardoneumarkt@ekumenlabs.com">Leonardo Neumarkt</maintainer>
+  <maintainer email="franco.c@ekumenlabs.com">Franco Cipollone</maintainer>
+  <license file="LICENSE">BSD Clause 3</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>andino_description</exec_depend>
+  <exec_depend>gazebo</exec_depend>
+  <exec_depend>gazebo_ros_pkgs</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>ros_gz_sim</exec_depend>
+  <exec_depend>rviz2</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
