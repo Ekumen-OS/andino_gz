@@ -1,0 +1,29 @@
+FROM osrf/ros:humble-desktop
+
+RUN apt-get update \
+ && apt-get install -y \
+        lsb-release \
+        sudo \
+        gnupg \
+        wget \
+        dpkg \
+        python3-pip \
+        curl \
+    && apt-get clean
+
+# Install Gazebo Fortress
+RUN sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+RUN wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+RUN sudo apt-get update
+RUN sudo apt-get install ignition-fortress -y
+
+# Switch to your user.
+USER $USER
+
+# Creates the src folder of the workspace.
+RUN mkdir -p /home/$USER/ws/src
+
+# Configure the workspace.
+WORKDIR /home/$USER/ws
+
+CMD ["/bin/bash"]
