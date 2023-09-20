@@ -13,6 +13,7 @@ import xacro
 
 pkg_andino_description = get_package_share_directory('andino_description')
 pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
+pkg_andino_gz = get_package_share_directory('andino_gz')
 
 
 def generate_launch_description():
@@ -21,7 +22,7 @@ def generate_launch_description():
     jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
 
     # Parse robot description from xacro
-    robot_description_file = os.path.join(pkg_andino_description, 'urdf', 'andino.urdf.xacro')
+    robot_description_file = os.path.join(pkg_andino_gz, 'urdf', 'andino_gz.urdf.xacro')
     robot_description_config = xacro.process_file(robot_description_file)
     robot_desc = robot_description_config.toprettyxml(indent='  ')
     # Passing absolute path to the robot description due to Gazebo issues finding andino_description pkg path.
@@ -29,6 +30,13 @@ def generate_launch_description():
         'package://andino_description/', f'file://{pkg_andino_description}/'
     )
 
+    # TODO Pass world as argument to the launchfile
+    world_name = 'world.sdf'
+    world_path = os.path.join(pkg_andino_gz, 'worlds', world_name)
+    
+    # Uncomment the following line to use the empty world
+    # world_path = '-r empty.sdf'
+    
     # Robot state publisher
     robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -47,23 +55,15 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(
             os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
         ),
-        launch_arguments={'gz_args': '-r empty.sdf'}.items(),
+        launch_arguments={'gz_args': world_path}.items(),
     )
 
     # RViz
     rviz = Node(
         package='rviz2',
         executable='rviz2',
-        arguments=['-d', os.path.join(pkg_andino_description, 'config', 'andino_vis.rviz')],
+        arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
         condition=IfCondition(LaunchConfiguration('rviz'))
-    )
-
-    rsp = Node(package='robot_state_publisher',
-                executable='robot_state_publisher',
-                namespace='andino',
-                output='both',
-                parameters=[{'robot_description': robot_desc}],
-                condition=IfCondition(LaunchConfiguration('rsp'))
     )
     
     # Joint state publisher
@@ -86,15 +86,6 @@ def generate_launch_description():
         output='screen',
     )
 
-    # Load Diffdrive plugin
-    load_diff_drive_controller = ExecuteProcess(
-        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
-             'diff_drive_base_controller'],
-        output='screen'
-    )
-        
-
-
     ld = LaunchDescription(
         [
             # Arguments and Nodes
@@ -104,10 +95,8 @@ def generate_launch_description():
             gazebo,
             jsp_gui,
             robot_state_publisher,
-            rsp,
             rviz,
             spawn,
-            load_diff_drive_controller
         ]
     )
 
