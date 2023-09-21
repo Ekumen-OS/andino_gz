@@ -2,6 +2,38 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
+<!-- ===================== Material ============================================
+
+  RVIZ material RGBA definition.
+-->
+
+  <material name="yellow">
+    <color rgba="1 0.95 0 1"/>
+  </material>
+  <material name="blue">
+    <color rgba="0 0 1 1"/>
+  </material>
+  <material name="light_blue">
+    <color rgba="0 0.5 0.8 1"/>
+  </material>
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="silver">
+    <color rgba="0.79 0.82 0.93 1"/>
+  </material>
+  <material name="dark_grey">
+    <color rgba="0.02 0.02 0.02 1"/>
+  </material>
+<!-- ========================================================================-->
+
+
 <!-- ===================== Wheel xacro =========================================
 
   params:
@@ -42,7 +74,7 @@
          <geometry>
          <cylinder radius="${wheel_props['radius']}" length="${wheel_props['length']}"/>
         </geometry>
-        <material name="red"/>
+        <material name="dark_grey"/>
       </visual>
     </xacro:if>
       <collision>
@@ -269,35 +301,5 @@
   </xacro:macro>
 <!-- ========================================================================-->
 
-<!-- ===================== Material ============================================
-
-  RVIZ material RGBA definition.
--->
-
-  <material name="yellow">
-    <color rgba="1 0.95 0 1"/>
-  </material>
-  <material name="blue">
-    <color rgba="0 0 1 1"/>
-  </material>
-  <material name="light_blue">
-    <color rgba="0 0.5 0.8 1"/>
-  </material>
-  <material name="black">
-    <color rgba="0 0 0 1"/>
-  </material>
-  <material name="white">
-    <color rgba="1 1 1 1"/>
-  </material>
-  <material name="red">
-    <color rgba="0.8 0.0 0.0 1.0"/>
-  </material>
-  <material name="silver">
-    <color rgba="0.79 0.82 0.93 1"/>
-  </material>
-  <material name="dark_grey">
-    <color rgba="0.3 0.3 0.3 1"/>
-  </material>
-<!-- ========================================================================-->
 
 </robot>

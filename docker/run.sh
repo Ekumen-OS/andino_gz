@@ -16,6 +16,6 @@ docker run -it -e DISPLAY -v "/tmp/.X11-unix:/tmp/.X11-unix:rw" \
 	-e "TERM=xterm-256color" \
     -v ${REPOSITORY_FOLDER_PATH}:$WORKSPACE_SRC_CONTAINER \
 	--net=host \
-	--gpus all \
+	--gpus=all -e NVIDIA_DRIVER_CAPABILITIES=all \
     --name andino_humble_fortress \
 	--privileged --rm docker_humble_fortress_andino /bin/bash

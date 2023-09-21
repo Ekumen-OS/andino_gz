@@ -23,7 +23,7 @@
         <geometry>
         <cylinder radius="${sensor_prop['laser']['radius']}" length="${sensor_prop['laser']['length']}"/>
       </geometry>
-      <material name="red"/>
+      <material name="dark_grey"/>
     </visual>
   </xacro:if>
     <collision>

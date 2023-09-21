@@ -16,5 +16,6 @@
     </plugin>
   </gazebo>
 
+  <!-- <xacro:include filename="$(find andino_gz)/urdf/include/andino_materials.xacro"/> -->
 
 </robot>

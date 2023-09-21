@@ -17,7 +17,7 @@
       <ambient>1 1 1 1</ambient>
       <background>0.3 0.7 0.9 1</background>
       <shadows>0</shadows>
-      <grid>1</grid>
+      <grid>0</grid>
     </scene>
 
     <model name='ground_plane'>
