@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- Chassis -->
+    <gazebo reference="base_link">
+        <material>
+          <diffuse> 0.039215686 0.423529412 1 1 </diffuse>
+          <ambient> 0.039215686 0.423529412 1 1 </ambient>
+          <specular> 0.039215686 0.423529412 1 1 </specular>
+        </material>
+    </gazebo>
+    <gazebo reference="second_base_link">
+        <material>
+          <diffuse> 0.039215686 0.423529412 1 1 </diffuse>
+          <ambient> 0.039215686 0.423529412 1 1 </ambient>
+          <specular> 0.039215686 0.423529412 1 1 </specular>
+        </material>
+    </gazebo>
+    <!-- Wheels -->
+    <gazebo reference="left_wheel">
+        <material>
+          <diffuse> 0 0 0 1 </diffuse>
+          <ambient> 0 0 0 1 </ambient>
+          <specular> 0 0 0 1 </specular>
+        </material>
+    </gazebo>
+    <gazebo reference="right_wheel">
+        <material>
+          <diffuse> 0 0 0 1 </diffuse>
+          <ambient> 0 0 0 1 </ambient>
+          <specular> 0 0 0 1 </specular>
+        </material>
+    </gazebo>
+    <!-- Caster wheel -->
+    <gazebo reference="caster_rotation_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="caster_base_link">
+        <material>Gazebo/White</material>
+    </gazebo>
+    <gazebo reference="caster_wheel_link">
+        <material>
+          <diffuse> 0 0 0 1 </diffuse>
+          <ambient> 0 0 0 1 </ambient>
+          <specular> 0 0 0 1 </specular>
+        </material>
+    </gazebo>
+    <!-- Motors -->
+    <gazebo reference="left_motor">
+        <material>Gazebo/BlueGlow</material>
+    </gazebo>
+    <gazebo reference="right_motor">
+        <material>Gazebo/BlueGlow</material>
+    </gazebo>
+    <!-- Camera -->
+    <gazebo reference="camera_link">
+        <material>Gazebo/Blue</material>
+    </gazebo>
+    <!-- Lidar -->
+    <gazebo reference="rplidar_laser_link">
+        <material>Ignition/Black</material>
+    </gazebo>
+
+</robot>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="andino">
+
+  <xacro:include filename="$(find andino_description)/urdf/andino.urdf.xacro"/>
+
+  <gazebo>
+    <plugin
+      filename="ignition-gazebo-diff-drive-system"
+      name="ignition::gazebo::systems::DiffDrive"> 
+      <left_joint>left_wheel_joint</left_joint>
+      <right_joint>right_wheel_joint</right_joint>
+      <wheel_separation>0.137</wheel_separation>
+      <wheel_radius>0.0175</wheel_radius>
+      <odom_publish_frequency>1</odom_publish_frequency>
+      <topic>/cmd_vel</topic>
+    </plugin>
+  </gazebo>
+
+  <!-- <xacro:include filename="$(find andino_gz)/urdf/include/andino_materials.xacro"/> -->
+
+</robot>
