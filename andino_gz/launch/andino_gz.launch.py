@@ -23,7 +23,8 @@ def generate_launch_description():
 
     # Parse robot description from xacro
     robot_description_file = os.path.join(pkg_andino_gz, 'urdf', 'andino_gz.urdf.xacro')
-    robot_description_config = xacro.process_file(robot_description_file)
+    mappings = {'use_fixed_caster': 'false'}
+    robot_description_config = xacro.process_file(robot_description_file, mappings=mappings)
     robot_desc = robot_description_config.toprettyxml(indent='  ')
     # Passing absolute path to the robot description due to Gazebo issues finding andino_description pkg path.
     robot_desc = robot_desc.replace(
