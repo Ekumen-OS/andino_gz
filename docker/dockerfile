@@ -25,6 +25,7 @@ RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
 RUN adduser $USER sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
+RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
 USER $USER
 
 # Adds USER to dialout and plugdev group.
