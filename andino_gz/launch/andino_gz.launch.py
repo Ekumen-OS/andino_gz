@@ -11,25 +11,11 @@ from launch_ros.actions import Node
 import xacro
 
 
-pkg_andino_description = get_package_share_directory('andino_description')
-pkg_ros_gz_sim = get_package_share_directory('ros_gz_sim')
-pkg_andino_gz = get_package_share_directory('andino_gz')
-
-
 def generate_launch_description():
-    rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
-    rsp_arg = DeclareLaunchArgument('rsp', default_value='false', description='Run robot state publisher node.')
-    jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
+    pkg_andino_gz = get_package_share_directory('andino_gz')
 
-    # Parse robot description from xacro
-    robot_description_file = os.path.join(pkg_andino_gz, 'urdf', 'andino_gz.urdf.xacro')
-    mappings = {'use_fixed_caster': 'false'}
-    robot_description_config = xacro.process_file(robot_description_file, mappings=mappings)
-    robot_desc = robot_description_config.toprettyxml(indent='  ')
-    # Passing absolute path to the robot description due to Gazebo issues finding andino_description pkg path.
-    robot_desc = robot_desc.replace(
-        'package://andino_description/', f'file://{pkg_andino_description}/'
-    )
+    rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
+    jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
 
     # TODO Pass world as argument to the launchfile
     world_name = 'world.sdf'
@@ -37,26 +23,29 @@ def generate_launch_description():
     
     # Uncomment the following line to use the empty world
     # world_path = '-r empty.sdf'
-    
-    # Robot state publisher
-    robot_state_publisher = Node(
-        package='robot_state_publisher',
-        executable='robot_state_publisher',
-        name='robot_state_publisher',
-        output='both',
-        parameters=[
-            {
-                'robot_description': robot_desc,
-            }
-        ],
-    )
 
     # Gazebo Sim
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(pkg_ros_gz_sim, 'launch', 'gz_sim.launch.py')
+            os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
         ),
         launch_arguments={'gz_args': world_path}.items(),
+    )
+
+    # Spawn the robot and the Robot State Publisher node.
+    spawn_robot_and_rsp = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_andino_gz, 'launch', 'spawn_robot.launch.py')
+        ),
+        launch_arguments={
+            'entity': 'andino',
+            'initial_pose_x': '0',
+            'initial_pose_y': '0',
+            'initial_pose_z': '0.1',
+            'initial_pose_yaw': '0',
+            'robot_description_topic': '/robot_description',
+            'use_sim_time': 'true',
+        }.items(),
     )
 
     # RViz
@@ -76,32 +65,14 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('jsp_gui'))
     )
 
-    # Spawn
-    spawn = Node(
-        package='ros_gz_sim',
-        executable='create',
-        arguments=[
-            '-name', 'andino',
-            '-topic', 'robot_description',
-            '-x', '0',
-            '-y', '0',
-            '-z', '0.1',
-        ],
-        output='screen',
-    )
-
-    ld = LaunchDescription(
+    return LaunchDescription(
         [
             # Arguments and Nodes
             jsp_gui_arg,
-            rsp_arg,
             rviz_arg,
             gazebo,
+            spawn_robot_and_rsp,
             jsp_gui,
-            robot_state_publisher,
             rviz,
-            spawn,
         ]
     )
-
-    return ld
