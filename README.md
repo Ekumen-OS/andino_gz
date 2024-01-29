@@ -60,5 +60,11 @@ For NVIDIA GPU support, `nvidia-container-toolkit` should be installed. *Skip th
   ros2 launch andino_gz andino_gz.launch.py
   ```
 
+- Looking at the topics in ROS 2 via the rosbridge:
 
+  ```sh
+  ros2 launch andino_gz gz_ros_bridge.launch.py
+  ```
 
+Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
+Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
