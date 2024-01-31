@@ -1,0 +1,33 @@
+name: colcon build & test
+
+on:
+  push:
+    branches:
+      - humble
+  pull_request:
+    branches:
+      - humble
+  workflow_dispatch:
+
+env:
+  ROS_DISTRO: humble
+
+# Cancel previously running PR jobs
+concurrency:
+  group: '${{ github.workflow }} @ ${{ github.event.pull_request.head.label || github.head_ref || github.ref }}'
+  cancel-in-progress: true
+
+jobs:
+  compile_and_test:
+    name: Compile and test
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:22.04
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ros-tooling/setup-ros@v0.6
+    - uses: ros-tooling/action-ros-ci@v0.3
+      id: action_ros_ci_step
+      with:
+        package-name: andino_gz
+        target-ros2-distro: ${{ env.ROS_DISTRO }}
