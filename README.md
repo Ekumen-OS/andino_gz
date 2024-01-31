@@ -1,66 +1,60 @@
-# Andino in Gazebo (Fortress)
+# Andino Gazebo (Fortress) Simulation
 
 
-<img src="./media/andino_gazebo.png" width="800"/>
+<img src="./docs/media/andino_gz.png" width="800"/>
 
+## :clipboard: Description
 
-### Docker
+This package provides a simulation environment for [Andino](https://github.com/Ekumen-OS/andino) in Gazebo Fortress using [ros_gz](https://github.com/gazebosim/ros_gz) to integrate it with ROS 2.
 
-#### Prerequisites
+## :clamp: Platforms
 
-It is a requirement to have `docker engine` already installed in the host machine.
+- ROS 2: Humble Hawksbill
+- OS:
+  - Ubuntu 22.04 Jammy Jellyfish
+- Gazebo:
+  - Fortress
 
-* See [Docker Installation Guide](https://docs.docker.com/engine/install/ubuntu/)
+## :inbox_tray: Installation
 
-For NVIDIA GPU support, `nvidia-container-toolkit` should be installed. *Skip this step if you don't have an NVIDIA graphics card*
+This package makes use of some packages from https://github.com/Ekumen-OS/andino repository. Therefore, the repository is brought as a git submodule.
+For so, when cloning this repository make sure to also init the submodules, this can be done adding a `--recursive` flag to the `git clone` command
 
+1. Clone this repository
 
-* Make sure you have the drivers installed:
-  ```sh
-  nvidia-smi
-  ```
-* See [NVIDIA Container Toolkit Installation Guide](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+```sh
+git clone git@github.com:ekumenlabs/andino_gz.git --recursive
+```
 
-### Building image and running container
+2. Set up docker environment:
+Refer to [docker readme](docker/README.md)
 
-- Build the docker image whose default name is `docker_humble_fortress_andino`:
+Once the container is running and dependencies have been installed you can proceed to package building.
 
-    ```sh
-    ./docker/build.sh
-    ```
+## :package: Build
 
-- Run a docker container from `docker_humble_fortress_andino` called `andino_humble_fortress`:
+The package contains some dependencies that must be installed in order to build it:
 
-    ```sh
-    ./docker/run.sh
-    ```
+```
+rosdep install --from-paths src -i -y
+```
 
-### Building and running simulation
-- Inside the container, install dependencies via `rosdep`:
+Then build the package and source the install workspace. To do so run the following commands:
 
-  ```sh
-  rosdep install -i -y --rosdistro humble --from-paths src
-  ```
+```sh
+colcon build
+source install/setup.bash
+```
 
-- Build the packages:
+## :rocket: Usage
 
-  ```sh
-  colcon build
-  ```
-
-- Source the built packages:
-
-  ```sh
-  source install/setup.bash
-  ```
-
-- Launch the simulation:
+Once the package is built and sourced, you can start a simulation.
 
   ```sh
   ros2 launch andino_gz andino_gz.launch.py
   ```
 
-- Looking at the topics in ROS 2 via the rosbridge:
+If you'd like to work from ROS you can launch the ros bridge via:
 
   ```sh
   ros2 launch andino_gz gz_ros_bridge.launch.py
@@ -68,3 +62,11 @@ For NVIDIA GPU support, `nvidia-container-toolkit` should be installed. *Skip th
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
+
+## :raised_hands: Contributing
+
+Issues or PRs are always welcome! Please refer to [CONTRIBUTING](CONTRIBUTING.md) doc.
+
+## Code development
+
+Note that a [`Docker`](./docker) folder is provided for easy setting up the workspace.
