@@ -31,13 +31,12 @@ def generate_launch_description():
         'package://andino_description/', f'file://{pkg_andino_description}/'
     )
 
-    # TODO Pass world as argument to the launchfile
-    world_name = 'world.sdf'
+    world_name = 'depot.sdf'
     world_path = os.path.join(pkg_andino_gz, 'worlds', world_name)
-    
+
     # Uncomment the following line to use the empty world
     # world_path = '-r empty.sdf'
-    
+
     # Robot state publisher
     robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -66,7 +65,7 @@ def generate_launch_description():
         arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
-    
+
     # Joint state publisher
     jsp_gui = Node(
         package='joint_state_publisher_gui',
