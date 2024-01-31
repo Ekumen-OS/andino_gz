@@ -17,10 +17,9 @@ def generate_launch_description():
     rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
     jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
 
-    # TODO Pass world as argument to the launchfile
-    world_name = 'world.sdf'
+    world_name = 'depot.sdf'
     world_path = os.path.join(pkg_andino_gz, 'worlds', world_name)
-    
+
     # Uncomment the following line to use the empty world
     # world_path = '-r empty.sdf'
 
@@ -55,7 +54,7 @@ def generate_launch_description():
         arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
-    
+
     # Joint state publisher
     jsp_gui = Node(
         package='joint_state_publisher_gui',
