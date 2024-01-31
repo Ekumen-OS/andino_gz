@@ -63,6 +63,20 @@ If you'd like to work from ROS you can launch the ros bridge via:
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
 
+### Spawn multiple Andinos
+
+Launch simulation as before:
+  ```sh
+  ros2 launch andino_gz andino_gz.launch.py
+  ```
+
+This will spawn only one Andino in the simulation
+
+For spawning more Andinos you can use the `spawn_robot` launch file. Make sure a different `entity` name is passed as argument as well as initial positions.
+  ```sh
+  ros2 launch andino_gz spawn_robot.launch.py entity:=andino_n initial_pose_x:=1 initial_pose_y:=1
+  ```
+
 ## :raised_hands: Contributing
 
 Issues or PRs are always welcome! Please refer to [CONTRIBUTING](CONTRIBUTING.md) doc.
