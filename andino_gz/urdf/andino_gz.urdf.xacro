@@ -12,7 +12,6 @@
       <wheel_separation>0.137</wheel_separation>
       <wheel_radius>0.0175</wheel_radius>
       <odom_publish_frequency>1</odom_publish_frequency>
-      <topic>/cmd_vel</topic>
     </plugin>
   </gazebo>
 
