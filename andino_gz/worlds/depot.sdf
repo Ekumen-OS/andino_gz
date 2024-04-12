@@ -16,7 +16,7 @@
     <scene>
       <ambient>1 1 1 1</ambient>
       <background>0.3 0.7 0.9 1</background>
-      <shadows>0</shadows>
+      <shadows>1</shadows>
       <grid>0</grid>
     </scene>
 
@@ -44,7 +44,7 @@
 
     <include>
       <uri>
-        https://fuel.ignitionrobotics.org/1.0/OpenRobotics/models/Depot
+        https://fuel.gazebosim.org/1.0/OpenRobotics/models/Depot
       </uri>
       <pose>7.19009 1.09982 0 0 0 0</pose>
     </include>
@@ -397,7 +397,7 @@
 
     <include>
       <uri>
-        https://fuel.ignitionrobotics.org/1.0/MovAi/models/Tugbot
+        https://fuel.gazebosim.org/1.0/MovAi/models/Tugbot
       </uri>
       <name>tugbot</name>
       <pose>2.75268 1.0014 0.132279 0 0 0</pose>
