@@ -395,12 +395,5 @@
       </link>
     </model>
 
-    <include>
-      <uri>
-        https://fuel.gazebosim.org/1.0/MovAi/models/Tugbot
-      </uri>
-      <name>tugbot</name>
-      <pose>2.75268 1.0014 0.132279 0 0 0</pose>
-    </include>
   </world>
 </sdf>
