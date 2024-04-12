@@ -3,62 +3,119 @@
 
     <!-- Chassis -->
     <gazebo reference="base_link">
+      <visual>
         <material>
-          <diffuse> 0.039215686 0.423529412 1 1 </diffuse>
-          <ambient> 0.039215686 0.423529412 1 1 </ambient>
-          <specular> 0.039215686 0.423529412 1 1 </specular>
+          <ambient>0.0 0.0 1.0 1.0</ambient>
+          <diffuse>0.0 0.0 1.0 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
         </material>
+      </visual>
     </gazebo>
     <gazebo reference="second_base_link">
+      <visual>
         <material>
-          <diffuse> 0.039215686 0.423529412 1 1 </diffuse>
-          <ambient> 0.039215686 0.423529412 1 1 </ambient>
-          <specular> 0.039215686 0.423529412 1 1 </specular>
+          <ambient>0.0 0.0 1.0 1.0</ambient>
+          <diffuse>0.0 0.0 1.0 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
         </material>
+      </visual>
     </gazebo>
     <!-- Wheels -->
     <gazebo reference="left_wheel">
+      <visual>
         <material>
-          <diffuse> 0 0 0 1 </diffuse>
-          <ambient> 0 0 0 1 </ambient>
-          <specular> 0 0 0 1 </specular>
+          <ambient>0.1 0.1 0.1 1.0</ambient>
+          <diffuse>0.02 0.02 0.02 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
         </material>
+      </visual>
     </gazebo>
     <gazebo reference="right_wheel">
+      <visual>
         <material>
-          <diffuse> 0 0 0 1 </diffuse>
-          <ambient> 0 0 0 1 </ambient>
-          <specular> 0 0 0 1 </specular>
+          <ambient>0.1 0.1 0.1 1.0</ambient>
+          <diffuse>0.02 0.02 0.02 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
         </material>
+      </visual>
     </gazebo>
     <!-- Caster wheel -->
     <gazebo reference="caster_rotation_link">
-        <material>Gazebo/White</material>
+      <visual>
+        <material>
+          <ambient>0.2 0.2 0.2 1.0</ambient>
+          <diffuse>0.3 0.3 0.3 1.0</diffuse>
+          <specular>0.9 0.9 0.9 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
     <gazebo reference="caster_base_link">
-        <material>Gazebo/White</material>
+      <visual>
+        <material>
+          <ambient>0.2 0.2 0.2 1.0</ambient>
+          <diffuse>0.3 0.3 0.3 1.0</diffuse>
+          <specular>0.9 0.9 0.9 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
     <gazebo reference="caster_wheel_link">
+      <visual>
         <material>
-          <diffuse> 0 0 0 1 </diffuse>
-          <ambient> 0 0 0 1 </ambient>
-          <specular> 0 0 0 1 </specular>
+          <ambient>0.1 0.1 0.1 1.0</ambient>
+          <diffuse>0.02 0.02 0.02 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
         </material>
+      </visual>
     </gazebo>
     <!-- Motors -->
     <gazebo reference="left_motor">
-        <material>Gazebo/BlueGlow</material>
+      <visual>
+        <material>
+          <ambient>0.0 0.3 1.0 1.0</ambient>
+          <diffuse>0.0 0.3 1.0 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
     <gazebo reference="right_motor">
-        <material>Gazebo/BlueGlow</material>
+      <visual>
+        <material>
+          <ambient>0.0 0.3 1.0 1.0</ambient>
+          <diffuse>0.0 0.3 1.0 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
     <!-- Camera -->
     <gazebo reference="camera_link">
-        <material>Gazebo/Blue</material>
+      <visual>
+        <material>
+          <ambient>0.0 0.0 1.0 1.0</ambient>
+          <diffuse>0.0 0.0 1.0 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
     <!-- Lidar -->
     <gazebo reference="rplidar_laser_link">
-        <material>Ignition/Black</material>
+      <visual>
+        <material>
+          <ambient>0.1 0.1 0.1 1.0</ambient>
+          <diffuse>0.02 0.02 0.02 1.0</diffuse>
+          <specular>0.1 0.1 0.1 1.0</specular>
+          <emissive>0.0 0.0 0.0 1.0</emissive>
+        </material>
+      </visual>
     </gazebo>
 
 </robot>

@@ -75,6 +75,6 @@
     </sensor>
   </gazebo>
 
-  <!-- <xacro:include filename="$(find andino_gz)/urdf/include/andino_materials.xacro"/> -->
+  <xacro:include filename="$(find andino_gz)/urdf/include/andino_materials.xacro"/>
 
 </robot>
