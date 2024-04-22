@@ -6,7 +6,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 import xacro
 
@@ -16,12 +16,10 @@ def generate_launch_description():
 
     rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
     jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
+    world_name_arg = DeclareLaunchArgument('world_name', default_value='depot.sdf', description='Name of the world to load.')
 
-    world_name = 'depot.sdf'
-    world_path = os.path.join(pkg_andino_gz, 'worlds', world_name)
-
-    # Uncomment the following line to use the empty world
-    # world_path = '-r empty.sdf'
+    world_name = LaunchConfiguration('world_name')
+    world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
 
     # Gazebo Sim
     gazebo = IncludeLaunchDescription(
@@ -69,6 +67,7 @@ def generate_launch_description():
             # Arguments and Nodes
             jsp_gui_arg,
             rviz_arg,
+            world_name_arg,
             gazebo,
             spawn_robot_and_rsp,
             jsp_gui,
