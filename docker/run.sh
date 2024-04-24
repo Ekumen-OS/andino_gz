@@ -104,7 +104,8 @@ if sudo -g docker docker container ls -a | grep "${CONTAINER_NAME}$" -c &> /dev/
 fi
 
 xhost +
-sudo docker run --privileged --net=host -it $NVIDIA_FLAGS \
+sudo docker run -it --privileged --net=host --ipc=host --pid=host -it \
+        $NVIDIA_FLAGS \
        -e DISPLAY=$DISPLAY \
        -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK_USER \
        -v $(dirname $SSH_AUTH_SOCK_USER):$(dirname $SSH_AUTH_SOCK_USER) \
