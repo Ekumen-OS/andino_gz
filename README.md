@@ -53,7 +53,13 @@ Once the package is built and sourced, you can start a simulation.
 
 _Note: You can use `--world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `empty.sdf`)_
 
-If you'd like to work from ROS you can launch the ros bridge via:
+If you'd like to work from ROS you can launch the ros bridge by adding the corresponding flag
+
+  ```sh
+  ros2 launch andino_gz andino_gz.launch.py ros_bridge:=true
+  ```
+
+(Optional) Or launching it separately via:
 
   ```sh
   ros2 launch andino_gz gz_ros_bridge.launch.py

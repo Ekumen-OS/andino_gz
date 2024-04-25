@@ -13,6 +13,11 @@
   ros_type_name: "tf2_msgs/msg/TFMessage"
   gz_type_name: "gz.msgs.Pose_V"
   direction: GZ_TO_ROS
+- ros_topic_name: "/joint_states"
+  gz_topic_name: "/world/gazebo_world/model/andino/joint_state"
+  ros_type_name: "sensor_msgs/msg/JointState"
+  gz_type_name: "gz.msgs.Model"
+  direction: GZ_TO_ROS
 - ros_topic_name: "/camera_info"
   gz_topic_name: "/world/gazebo_world/model/andino/link/base_link/sensor/camera/camera_info"
   ros_type_name: "sensor_msgs/msg/CameraInfo"

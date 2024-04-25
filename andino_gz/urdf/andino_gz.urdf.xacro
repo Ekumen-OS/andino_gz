@@ -17,6 +17,17 @@
     </plugin>
   </gazebo>
 
+  <gazebo>
+    <plugin
+      filename="ignition-gazebo-joint-state-publisher-system"
+      name="ignition::gazebo::systems::JointStatePublisher">
+      <joint_name>left_wheel_joint</joint_name>
+      <joint_name>right_wheel_joint</joint_name>
+      <joint_name>caster_wheel_joint</joint_name>
+      <joint_name>caster_rotation_joint</joint_name>
+    </plugin>
+  </gazebo>
+
   <gazebo reference="rplidar_laser_link">
     <sensor name="sensor_ray_front" type="gpu_lidar">
       <ray>

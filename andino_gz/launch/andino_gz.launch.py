@@ -14,6 +14,8 @@ import xacro
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
 
+    ros_bridge_arg = DeclareLaunchArgument(
+        'ros_bridge', default_value='false', description = 'Run ROS bridge node.')
     rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
     jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
     world_name_arg = DeclareLaunchArgument('world_name', default_value='depot.sdf', description='Name of the world to load.')
@@ -50,6 +52,7 @@ def generate_launch_description():
         package='rviz2',
         executable='rviz2',
         arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
+        parameters=[{'use_sim_time': True}],
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
@@ -62,13 +65,23 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('jsp_gui'))
     )
 
+    # Run ros_gz bridge
+    ros_bridge = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(pkg_andino_gz, 'launch', 'gz_ros_bridge.launch.py')
+        ),
+        condition=IfCondition(LaunchConfiguration('ros_bridge'))
+    )
+
     return LaunchDescription(
         [
             # Arguments and Nodes
+            ros_bridge_arg,
             jsp_gui_arg,
             rviz_arg,
             world_name_arg,
             gazebo,
+            ros_bridge,
             spawn_robot_and_rsp,
             jsp_gui,
             rviz,
