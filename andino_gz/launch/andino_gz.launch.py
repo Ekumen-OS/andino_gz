@@ -17,7 +17,6 @@ def generate_launch_description():
     ros_bridge_arg = DeclareLaunchArgument(
         'ros_bridge', default_value='false', description = 'Run ROS bridge node.')
     rviz_arg = DeclareLaunchArgument('rviz', default_value='false', description='Start RViz.')
-    jsp_gui_arg = DeclareLaunchArgument('jsp_gui', default_value='false', description='Run joint state publisher gui node.')
     world_name_arg = DeclareLaunchArgument('world_name', default_value='depot.sdf', description='Name of the world to load.')
 
     world_name = LaunchConfiguration('world_name')
@@ -56,15 +55,6 @@ def generate_launch_description():
         condition=IfCondition(LaunchConfiguration('rviz'))
     )
 
-    # Joint state publisher
-    jsp_gui = Node(
-        package='joint_state_publisher_gui',
-        executable='joint_state_publisher_gui',
-        namespace='andino',
-        name='joint_state_publisher_gui',
-        condition=IfCondition(LaunchConfiguration('jsp_gui'))
-    )
-
     # Run ros_gz bridge
     ros_bridge = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -77,13 +67,11 @@ def generate_launch_description():
         [
             # Arguments and Nodes
             ros_bridge_arg,
-            jsp_gui_arg,
             rviz_arg,
             world_name_arg,
             gazebo,
             ros_bridge,
             spawn_robot_and_rsp,
-            jsp_gui,
             rviz,
         ]
     )

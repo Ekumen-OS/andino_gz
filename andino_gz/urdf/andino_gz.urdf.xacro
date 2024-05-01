@@ -30,6 +30,7 @@
 
   <gazebo reference="rplidar_laser_link">
     <sensor name="sensor_ray_front" type="gpu_lidar">
+      <gz_frame_id>rplidar_laser_link</gz_frame_id>
       <ray>
         <scan>
           <horizontal>
