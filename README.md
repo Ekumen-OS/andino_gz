@@ -45,6 +45,8 @@ source install/setup.bash
 
 ## :rocket: Usage
 
+### Andino simulation
+
 Once the package is built and sourced, you can start a simulation.
 
   ```sh
@@ -68,6 +70,29 @@ If you'd like to work from ROS you can launch the ros bridge by adding the corre
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
 
+### SLAM
+
+<img src="./docs/media/andino_slam.png" width="800"/>
+
+1. Run simulation with ros bridge and RViz.
+
+    ```sh
+    ros2 launch andino_gz andino_gz.launch.py ros_bridge:=true rviz:=true
+    ```
+
+2. Run slam toolbox
+    ```
+    ros2 launch andino_gz slam_toolbox_online_async.launch.py
+    ```
+
+    Configuration can be forwarded to the `slam_toolbox_node`. By default, the configuration parameters are obtained from [andino's configuration file](https://github.com/Ekumen-OS/andino/blob/humble/andino_slam/config/slam_toolbox_online_async.yaml). In case a custom file is wanted to be passed, simply use the launch file argument for indicating the path to a new file.
+
+    ```
+    ros2 launch andino_gz slam_toolbox_online_async.launch.py slams_param_file:=<my_path>
+    ```
+
+3. Visualize in RViz: Add `map` panel to RViz and see how the map is being generated.
+
 ### Spawn multiple Andinos
 
 Launch simulation as before:
@@ -81,6 +106,8 @@ For spawning more Andinos you can use the `spawn_robot` launch file. Make sure a
   ```sh
   ros2 launch andino_gz spawn_robot.launch.py entity:=andino_n initial_pose_x:=1 initial_pose_y:=1
   ```
+
+_Note: Andino is spawned but no bridge to ROS2 bridge are spawned for those robots._
 
 ## :raised_hands: Contributing
 
