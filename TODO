@@ -1,0 +1,9 @@
+☐ andino_gz.launch.py should launch bridge node only for the clock. (if ros_bridge is used.)
+☐ spawn_robot launch file should launch its own ros bridge everytime it is launched.
+☐ ros_bridge yaml should have some placeholders <entity> instead of andino so it is more generic and replaced by each spawn_robot call
+☐ a ros namespace should be pushed to each ros bridge node, this should change the topic from the ros side(to verify)
+
+
+
+
+ros2 launch andino_gz andino_gz.launch.py robots:="andino={x: 2., y: 0., z: 0.1, yaw: 0.};andino2={x: 0., y: 0., z: 0.1, yaw: 0.};" ros_bridge:=true

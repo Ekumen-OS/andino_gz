@@ -78,7 +78,7 @@ def generate_launch_description():
     )
     robot_desc_argument = DeclareLaunchArgument(
         'robot_description_topic',
-        default_value='/robot_description',
+        default_value='robot_description',
         description='Robot description topic.',
     )
     rsp_frequency_argument = DeclareLaunchArgument(
@@ -104,6 +104,10 @@ def generate_launch_description():
                 'publish_frequency': rsp_frequency,
                 'robot_description': get_robot_description(),
             }
+        ],
+        remappings=[
+            ('/tf', 'tf'),
+            ('/tf_static', 'tf_static'),
         ],
     )
 
