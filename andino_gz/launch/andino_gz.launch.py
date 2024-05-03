@@ -25,6 +25,7 @@ def generate_launch_description():
     world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
 
     # TODO: Add gazebo and base_ros_bridge to a Group to avoid exposing flags.
+    # TODO: Understand how flags can be hidden withing group.
 
     # Gazebo Sim
     gazebo = IncludeLaunchDescription(
@@ -73,6 +74,7 @@ def generate_launch_description():
           ),
           # RViz
           Node(
+            # TODO: This condition isn't working. Move node outside of group.
               condition=IfCondition(LaunchConfiguration('rviz')),
               package='rviz2',
               executable='rviz2',
