@@ -7,7 +7,8 @@ from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 from launch.substitutions import LaunchConfiguration
 
-from nav2_common.launch import ReplaceString, RewrittenYaml
+from nav2_common.launch import ReplaceString
+
 
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
@@ -27,11 +28,11 @@ def generate_launch_description():
         executable='parameter_bridge',
         output='screen',
         parameters=[{
-          'config_file': bridge_config
+            'config_file': bridge_config
         }],
     )
 
     return LaunchDescription([
-      entity_arg,
-      bridge_node,
+        entity_arg,
+        bridge_node,
     ])
