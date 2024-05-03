@@ -74,13 +74,13 @@ Also, consider using looking at the translation entries under `andino_gz/config/
   This simulation also support multi robot simulation.
 
   ```sh
-  ros2 launch andino_gz andino_gz.launch.py robots:="\
-       andino1={x: 0.0, y: 0., z: 0.1, yaw: 0.};\
-       andino2={x: 0.4, y: 0., z: 0.1, yaw: 0.};\
-       andino3={x: 0.8, y: 0., z: 0.1, yaw: 0.};\
-       andino4={x: 1.2, y: 0., z: 0.1, yaw: 0.};\
-       andino5={x: 1.6, y: 0., z: 0.1, yaw: 0.};\
-       andino6={x: 2.0, y: 0., z: 0.1, yaw: 0.};"
+  ros2 launch andino_gz andino_gz.launch.py robots:="
+       andino1={x: 0.0, y: 0.0, z: 0.1, yaw: 0.};
+       andino2={x: -0.4, y: 0.1, z: 0.1, yaw: 0.};
+       andino3={x: -0.4, y: -0.1, z: 0.1, yaw: 0.};
+       andino4={x: -0.8, y: 0.2, z: 0.1, yaw: 0.};
+       andino5={x: -0.8, y: -0.2, z: 0.1, yaw: 0.};
+       andino6={x: -0.8, y: 0.0, z: 0.1, yaw: 0.};"
   ```
 
   _Note: You can add as many as you want_
