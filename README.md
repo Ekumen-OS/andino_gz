@@ -109,7 +109,7 @@ Also, consider using looking at the translation entries under `andino_gz/config/
 1. Run simulation with ros bridge and RViz.
 
     ```sh
-    ros2 launch andino_gz andino_gz.launch.py ros_bridge:=true rviz:=true
+    ros2 launch andino_gz andino_gz.launch.py
     ```
 
 2. Run slam toolbox
@@ -124,22 +124,6 @@ Also, consider using looking at the translation entries under `andino_gz/config/
     ```
 
 3. Visualize in RViz: Add `map` panel to RViz and see how the map is being generated.
-
-### Spawn multiple Andinos
-
-Launch simulation as before:
-  ```sh
-  ros2 launch andino_gz andino_gz.launch.py
-  ```
-
-This will spawn only one Andino in the simulation
-
-For spawning more Andinos you can use the `spawn_robot` launch file. Make sure a different `entity` name is passed as argument as well as initial positions.
-  ```sh
-  ros2 launch andino_gz spawn_robot.launch.py entity:=andino_n initial_pose_x:=1 initial_pose_y:=1
-  ```
-
-_Note: Andino is spawned but no bridge to ROS2 bridge are spawned for those robots._
 
 ## :raised_hands: Contributing
 
