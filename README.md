@@ -55,20 +55,52 @@ Once the package is built and sourced, you can start a simulation.
 
 _Note: You can use `--world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `empty.sdf`)_
 
-If you'd like to work from ROS you can launch the ros bridge by adding the corresponding flag
+By default the ros bridge and rviz is initialized. In case you prefer to disable any of those you can do it via its flags:
 
   ```sh
-  ros2 launch andino_gz andino_gz.launch.py ros_bridge:=true
+  ros2 launch andino_gz andino_gz.launch.py ros_bridge:=false rviz:=false
   ```
 
-(Optional) Or launching it separately via:
-
+To see a complete list of available arguments for the launch file do:
   ```sh
-  ros2 launch andino_gz gz_ros_bridge.launch.py
+  ros2 launch andino_gz andino_gz.launch.py --show-args
   ```
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
+
+### Multi robot simulation
+
+  This simulation also support multi robot simulation.
+
+  ```sh
+  ros2 launch andino_gz andino_gz.launch.py robots:="\
+       andino1={x: 0.0, y: 0., z: 0.1, yaw: 0.};\
+       andino2={x: 0.4, y: 0., z: 0.1, yaw: 0.};\
+       andino3={x: 0.8, y: 0., z: 0.1, yaw: 0.};\
+       andino4={x: 1.2, y: 0., z: 0.1, yaw: 0.};\
+       andino5={x: 1.6, y: 0., z: 0.1, yaw: 0.};\
+       andino6={x: 2.0, y: 0., z: 0.1, yaw: 0.};"
+  ```
+
+  _Note: You can add as many as you want_
+
+  <img src="./docs/media/andino_gz_multi_robot.png" width="800"/>
+
+  The launch file is in charge of:
+   - Start Gazebo simulator with a defined world (See '--world_name' flag)
+   - Spawn as many robots as commanded.
+   - Launch ros bridge for each robot.
+   - Launch rviz visualization for each robot.
+
+  The simulation allows spawn as many robots as you want via the `--robots` flags.
+  For that you can pass the information of the robots in some sort of YAML format via ROS2 cli:
+  ```yaml
+    <robot_name>={x: 0.0, y: 0.0, yaw: 0.0, roll: 0.0, pitch: 0.0, yaw: 0.0};
+  ```
+
+  Note a ROS Namespace is pushed for each robot so all the topics and nodes are called the same with a difference of a `<robot_name>` prefix.
+
 
 ### SLAM
 
