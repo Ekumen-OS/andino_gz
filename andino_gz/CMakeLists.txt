@@ -13,6 +13,7 @@ install(
     config_gui
     models
     launch
+    maps
     rviz
     urdf
     worlds

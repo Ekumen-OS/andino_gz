@@ -90,6 +90,7 @@ def generate_launch_description():
         robots_list = {"andino": {"x": 0., "y": 0., "z": 0.1, "yaw": 0.}}
     log_number_robots = LogInfo(msg="Robots to spawn: " + str(robots_list))
     spawn_robots_group = []
+    more_than_one_robot = PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' > 1'])
     for robot_name in robots_list:
         init_pose = robots_list[robot_name]
         # As it is scoped and not forwarding, the launch configuration in this context gets cleared.
@@ -103,8 +104,7 @@ def generate_launch_description():
             actions=[
                 LogInfo(msg="Group for robot: " + robot_name),
                 PushRosNamespace(
-                    condition=IfCondition(
-                        PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' > 1'])),
+                    condition=IfCondition(more_than_one_robot),
                     namespace=robot_name),
                 # Spawn the robot and the Robot State Publisher node.
                 IncludeLaunchDescription(
@@ -126,7 +126,7 @@ def generate_launch_description():
                     condition=IfCondition(rviz),
                     package='rviz2',
                     executable='rviz2',
-                    arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
+                    arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz_nav2.rviz')],
                     parameters=[{'use_sim_time': True}],
                     remappings=[
                         ('/tf', 'tf'),
@@ -149,8 +149,8 @@ def generate_launch_description():
                         os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
                     ),
                     launch_arguments={
-                      'namespace': robot_name,
-                      'use_namespace': 'True',
+                      # 'namespace': robot_name,
+                      # 'use_namespace': 'True',
                       'map': LaunchConfiguration('map'),
                       'autostart': 'True',
                       'use_sim_time': 'True',
@@ -158,14 +158,11 @@ def generate_launch_description():
                 ),
             ]
         )
-        # group = GroupAction(
-        #     scoped=True, forwarding=False,
-        #     launch_configurations={
-        #         'rviz': rviz,
-        #         'ros_bridge': ros_bridge,
-        #         'map': map_path,
-        #     },)
         spawn_robots_group.append(group)
+
+
+# TODO: THERE IS A CONFLICT BETWEEN THE ROS NAMESPACE I PUSH AND THE HANDLING ON THAT IN HTE NAV2 BRINGUP
+# SO WE SHOULD TO MOVE THE NAV2 BRINGUP STATEMENT TO A NEW ACTION WITHOUT PUSHING THE NAMESPACE.
 
     ld = LaunchDescription()
     ld.add_action(log_robots_by_user)
