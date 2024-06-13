@@ -1,0 +1,7 @@
+image: depot.pgm
+mode: trinary
+resolution: 0.05
+origin: [-7.99, -6.67, 0]
+negate: 0
+occupied_thresh: 0.65
+free_thresh: 0.15

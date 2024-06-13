@@ -16,6 +16,7 @@ from andino_gz.launch_tools.substitutions import TextJoin
 
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
+    pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
 
     ros_bridge_arg = DeclareLaunchArgument(
         'ros_bridge', default_value='true', description='Run ROS bridge node.')
@@ -30,12 +31,17 @@ def generate_launch_description():
         default_value='default.config',
         description='Name of the gui configuration file to load.')
 
+    map_path_arg = DeclareLaunchArgument(
+      'map', default_value=PathJoinSubstitution([pkg_andino_gz, 'maps', "depot", "depot.yaml"])
+    )
+
     # Variables of launch file.
     rviz = LaunchConfiguration('rviz')
     ros_bridge = LaunchConfiguration('ros_bridge')
     world_name = LaunchConfiguration('world_name')
     gui_config = LaunchConfiguration('gui_config')
     gui_config_path = PathJoinSubstitution([pkg_andino_gz, 'config_gui', gui_config])
+    map_path = LaunchConfiguration('map')
 
     # Obtains world path.
     world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
@@ -75,8 +81,12 @@ def generate_launch_description():
 
     robots_list = ParseMultiRobotPose('robots').value()
     # When no robots are specified, spawn a single robot at the origin.
-    # The default value isn't getting parsed correctly, so we need to check for an empty dictionary.
+    # The default value isn't getting parsed correctly because ParseMultiRobotPose checks sys.args
+    # instead of using launch argument.
+    # TODO: Implement our ParseMultiRobotPose substitution for getting robot's pose correctly.
+    log_robots_by_user = LogInfo(msg="Robots provided by user.")
     if (robots_list == {}):
+        log_robots_by_user = LogInfo(msg="No robots provided, using default:")
         robots_list = {"andino": {"x": 0., "y": 0., "z": 0.1, "yaw": 0.}}
     log_number_robots = LogInfo(msg="Robots to spawn: " + str(robots_list))
     spawn_robots_group = []
@@ -87,7 +97,8 @@ def generate_launch_description():
             scoped=True, forwarding=False,
             launch_configurations={
                 'rviz': rviz,
-                'ros_bridge': ros_bridge
+                'ros_bridge': ros_bridge,
+                'map': map_path,
             },
             actions=[
                 LogInfo(msg="Group for robot: " + robot_name),
@@ -131,18 +142,40 @@ def generate_launch_description():
                         'entity': robot_name,
                     }.items(),
                     condition=IfCondition(LaunchConfiguration('ros_bridge')),
-                )
+                ),
+                # Launch nav2 bringup
+                IncludeLaunchDescription(
+                    PythonLaunchDescriptionSource(
+                        os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
+                    ),
+                    launch_arguments={
+                      'namespace': robot_name,
+                      'use_namespace': 'True',
+                      'map': LaunchConfiguration('map'),
+                      'autostart': 'True',
+                      'use_sim_time': 'True',
+                    }.items(),
+                ),
             ]
         )
+        # group = GroupAction(
+        #     scoped=True, forwarding=False,
+        #     launch_configurations={
+        #         'rviz': rviz,
+        #         'ros_bridge': ros_bridge,
+        #         'map': map_path,
+        #     },)
         spawn_robots_group.append(group)
 
     ld = LaunchDescription()
+    ld.add_action(log_robots_by_user)
     ld.add_action(log_number_robots)
     ld.add_action(ros_bridge_arg)
     ld.add_action(rviz_arg)
     ld.add_action(world_name_arg)
     ld.add_action(robots_arg)
     ld.add_action(gui_config_arg)
+    ld.add_action(map_path_arg)
     ld.add_action(base_group)
     for group in spawn_robots_group:
         ld.add_action(group)
