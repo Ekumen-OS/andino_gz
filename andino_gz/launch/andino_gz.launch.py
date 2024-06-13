@@ -143,22 +143,47 @@ def generate_launch_description():
                     }.items(),
                     condition=IfCondition(LaunchConfiguration('ros_bridge')),
                 ),
-                # Launch nav2 bringup
-                IncludeLaunchDescription(
-                    PythonLaunchDescriptionSource(
-                        os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
-                    ),
-                    launch_arguments={
-                      # 'namespace': robot_name,
-                      # 'use_namespace': 'True',
-                      'map': LaunchConfiguration('map'),
-                      'autostart': 'True',
-                      'use_sim_time': 'True',
-                    }.items(),
-                ),
             ]
         )
+        group2 = GroupAction(
+          scoped=True, forwarding=False,
+          launch_configurations={
+              'rviz': rviz,
+              'ros_bridge': ros_bridge,
+              'map': map_path,
+          },
+          actions=[
+              # Launch nav2 bringup
+              # IncludeLaunchDescription(
+              #     PythonLaunchDescriptionSource(
+              #         os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
+              #     ),
+              #     launch_arguments={
+              #       # 'namespace': robot_name,
+              #       # 'use_namespace': 'True',
+              #       'map': LaunchConfiguration('map'),
+              #       'autostart': 'True',
+              #       'use_sim_time': 'True',
+              #     }.items(),
+              #     condition=IfCondition(not more_than_one_robot),
+              # ),
+              IncludeLaunchDescription(
+                  PythonLaunchDescriptionSource(
+                      os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
+                  ),
+                  launch_arguments={
+                    'namespace': robot_name,
+                    'use_namespace': 'True',
+                    'map': LaunchConfiguration('map'),
+                    'autostart': 'True',
+                    'use_sim_time': 'True',
+                  }.items(),
+                  condition=IfCondition(more_than_one_robot),
+              ),
+          ]
+        )
         spawn_robots_group.append(group)
+        spawn_robots_group.append(group2)
 
 
 # TODO: THERE IS A CONFLICT BETWEEN THE ROS NAMESPACE I PUSH AND THE HANDLING ON THAT IN HTE NAV2 BRINGUP

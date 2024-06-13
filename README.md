@@ -99,8 +99,8 @@ Also, consider using looking at the translation entries under `andino_gz/config/
     <robot_name>={x: 0.0, y: 0.0, yaw: 0.0, roll: 0.0, pitch: 0.0, yaw: 0.0};
   ```
 
-  Note a ROS Namespace is pushed for each robot so all the topics and nodes are called the same with a difference of a `<robot_name>` prefix.
-
+  Note: A ROS Namespace is pushed for each robot so all the topics and nodes are called the same with a difference of a `<robot_name>` prefix.
+  Note2: In order to RViz2 to work with the ROS namespace that is pushed, one has to make sure that no absolute topics are being used.
 
 ### SLAM
 
