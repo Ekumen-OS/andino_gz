@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <sdf version='1.7'>
-  <model name='hq4_office'>
+  <model name='office'>
     <link name='link_0'>
       <inertial>
         <mass>1</mass>
@@ -23,7 +23,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://hq4_office.stl</uri>
+            <uri>model://office.stl</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
@@ -44,7 +44,7 @@
         <pose>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
-            <uri>model://hq4_office.stl</uri>
+            <uri>model://office.stl</uri>
             <scale>1 1 1</scale>
           </mesh>
         </geometry>
