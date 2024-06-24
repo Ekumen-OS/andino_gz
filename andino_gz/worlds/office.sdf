@@ -1,3 +1,4 @@
+<?xml version='1.0' encoding='ASCII'?>
 <sdf version='1.7'>
   <world name='default'>
     <light name='sun' type='directional'>
