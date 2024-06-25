@@ -56,10 +56,10 @@
             </plane>
           </geometry>
           <material>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
-            </script>
+            <ambient>0.0 0.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.1 0.1 0.1 1.0</specular>
+            <emissive>0.0 0.0 0.0 1.0</emissive>
           </material>
         </visual>
         <self_collide>0</self_collide>
@@ -155,10 +155,10 @@
           </geometry>
           <material>
             <lighting>1</lighting>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
-            </script>
+            <ambient>1.0 1.0 1.0 1.0</ambient>
+            <diffuse>1.0 1.0 1.0 1.0</diffuse>
+            <specular>0.1 0.1 0.1 1.0</specular>
+            <emissive>0.0 0.0 0.0 1.0</emissive>
             <shader type='pixel'/>
           </material>
           <transparency>0</transparency>
