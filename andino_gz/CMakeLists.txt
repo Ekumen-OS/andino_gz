@@ -5,9 +5,12 @@ find_package(gazebo QUIET)
 
 find_package(ament_cmake REQUIRED)
 
+ament_python_install_package("andino_gz")
+
 install(
   DIRECTORY
     config
+    config_gui
     models
     launch
     rviz

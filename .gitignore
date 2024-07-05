@@ -1,5 +1,7 @@
 *.build
 *.install
 
+sandbox
+
 # Visual Studio Code files
 .vscode

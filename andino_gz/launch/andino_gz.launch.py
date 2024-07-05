@@ -11,6 +11,8 @@ from launch_ros.actions import Node, PushRosNamespace
 
 from nav2_common.launch import ParseMultiRobotPose
 
+from andino_gz.launch_tools.substitutions import TextJoin
+
 
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
@@ -23,20 +25,33 @@ def generate_launch_description():
     robots_arg = DeclareLaunchArgument(
         'robots', default_value="andino={x: 0., y: 0., z: 0.1, yaw: 0.};",
         description='Robots to spawn, multiple robots can be stated separated by a ; ')
+    gui_config_arg = DeclareLaunchArgument(
+        'gui_config',
+        default_value='default.config',
+        description='Name of the gui configuration file to load.')
 
     # Variables of launch file.
     rviz = LaunchConfiguration('rviz')
     ros_bridge = LaunchConfiguration('ros_bridge')
     world_name = LaunchConfiguration('world_name')
+    gui_config = LaunchConfiguration('gui_config')
+    gui_config_path = PathJoinSubstitution([pkg_andino_gz, 'config_gui', gui_config])
 
     # Obtains world path.
     world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
-
+    gz_args = TextJoin(
+        substitutions=[
+            world_path,
+            TextJoin(substitutions=["--gui-config", gui_config_path], separator=' '),
+        ],
+        separator=' ',
+    )
     base_group = GroupAction(
         scoped=True, forwarding=False,
         launch_configurations={
             'ros_bridge': ros_bridge,
-            'world_name': world_name
+            'world_name': world_name,
+            'gui_config': gui_config
         },
         actions=[
             # Gazebo Sim
@@ -44,7 +59,7 @@ def generate_launch_description():
                 PythonLaunchDescriptionSource(
                     os.path.join(get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')
                 ),
-                launch_arguments={'gz_args': world_path}.items(),
+                launch_arguments={'gz_args': gz_args}.items(),
             ),
             # ROS Bridge for generic Gazebo stuff
             Node(
@@ -127,6 +142,7 @@ def generate_launch_description():
     ld.add_action(rviz_arg)
     ld.add_action(world_name_arg)
     ld.add_action(robots_arg)
+    ld.add_action(gui_config_arg)
     ld.add_action(base_group)
     for group in spawn_robots_group:
         ld.add_action(group)
