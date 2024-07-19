@@ -22,7 +22,7 @@ def generate_launch_description():
         'ros_bridge', default_value='true', description='Run ROS bridge node.')
     rviz_arg = DeclareLaunchArgument('rviz', default_value='true', description='Start RViz.')
     world_name_arg = DeclareLaunchArgument(
-        'world_name', default_value='depot.sdf', description='Name of the world to load.')
+        'world_name', default_value='depot.sdf', description='Name of the world to load. Match with map if using Nav2.')
     robots_arg = DeclareLaunchArgument(
         'robots', default_value="andino={x: 0., y: 0., z: 0.1, yaw: 0.};",
         description='Robots to spawn, multiple robots can be stated separated by a ; ')
@@ -30,21 +30,34 @@ def generate_launch_description():
         'gui_config',
         default_value='default.config',
         description='Name of the gui configuration file to load.')
-
-    map_path_arg = DeclareLaunchArgument(
-      'map', default_value=PathJoinSubstitution([pkg_andino_gz, 'maps', "depot", "depot.yaml"])
+    nav2_arg = DeclareLaunchArgument(
+        'nav2', default_value='True',
+        description='Enable Nav2 Bringup.')
+    map_name_arg = DeclareLaunchArgument(
+      'map', default_value="depot", description='Name of the map to load. It should match the world_name.'
     )
+    params_file_arg = DeclareLaunchArgument(
+        'params_file',
+        default_value=PathJoinSubstitution([pkg_andino_gz, 'config', 'nav2_params.yaml']),
+        description='Nav2 configuration. Full path to the ROS2 parameters file to use for all launched nodes')
 
     # Variables of launch file.
     rviz = LaunchConfiguration('rviz')
     ros_bridge = LaunchConfiguration('ros_bridge')
     world_name = LaunchConfiguration('world_name')
+    map_name = LaunchConfiguration('map')
     gui_config = LaunchConfiguration('gui_config')
     gui_config_path = PathJoinSubstitution([pkg_andino_gz, 'config_gui', gui_config])
-    map_path = LaunchConfiguration('map')
+    nav2_flag = LaunchConfiguration('nav2')
+    params_file = LaunchConfiguration('params_file')
 
     # Obtains world path.
     world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
+    log_world_path = LogInfo(msg=TextJoin(substitutions=["World path: ", world_path]))
+    # Obtains the map path.
+    map_path = PathJoinSubstitution([pkg_andino_gz, 'maps', map_name, TextJoin(substitutions=[map_name ,'.yaml'])])
+    log_map_path = LogInfo(msg=TextJoin(substitutions=["Map path: ", map_path]))
+    # Gazebo arguments.
     gz_args = TextJoin(
         substitutions=[
             world_path,
@@ -52,12 +65,13 @@ def generate_launch_description():
         ],
         separator=' ',
     )
+    # Launches the base group: Gazebo sim and ROS bridge for generic Gazebo stuff.
     base_group = GroupAction(
         scoped=True, forwarding=False,
         launch_configurations={
             'ros_bridge': ros_bridge,
             'world_name': world_name,
-            'gui_config': gui_config
+            'gui_config': gui_config,
         },
         actions=[
             # Gazebo Sim
@@ -91,15 +105,15 @@ def generate_launch_description():
     log_number_robots = LogInfo(msg="Robots to spawn: " + str(robots_list))
     spawn_robots_group = []
     more_than_one_robot = PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' > 1'])
+    one_robot = PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' == 1'])
     for robot_name in robots_list:
         init_pose = robots_list[robot_name]
         # As it is scoped and not forwarding, the launch configuration in this context gets cleared.
-        group = GroupAction(
+        robots_group = GroupAction(
             scoped=True, forwarding=False,
             launch_configurations={
                 'rviz': rviz,
                 'ros_bridge': ros_bridge,
-                'map': map_path,
             },
             actions=[
                 LogInfo(msg="Group for robot: " + robot_name),
@@ -145,28 +159,17 @@ def generate_launch_description():
                 ),
             ]
         )
-        group2 = GroupAction(
+        nav_group = GroupAction(
           scoped=True, forwarding=False,
           launch_configurations={
               'rviz': rviz,
               'ros_bridge': ros_bridge,
               'map': map_path,
+              'params_file': params_file,
+              'nav2': nav2_flag,
           },
           actions=[
-              # Launch nav2 bringup
-              # IncludeLaunchDescription(
-              #     PythonLaunchDescriptionSource(
-              #         os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
-              #     ),
-              #     launch_arguments={
-              #       # 'namespace': robot_name,
-              #       # 'use_namespace': 'True',
-              #       'map': LaunchConfiguration('map'),
-              #       'autostart': 'True',
-              #       'use_sim_time': 'True',
-              #     }.items(),
-              #     condition=IfCondition(not more_than_one_robot),
-              # ),
+              # Nav2 Bringup for multiple robots
               IncludeLaunchDescription(
                   PythonLaunchDescriptionSource(
                       os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
@@ -177,17 +180,29 @@ def generate_launch_description():
                     'map': LaunchConfiguration('map'),
                     'autostart': 'True',
                     'use_sim_time': 'True',
+                    'params_file': LaunchConfiguration('params_file'),
                   }.items(),
                   condition=IfCondition(more_than_one_robot),
+                  # condition=IfCondition(more_than_one_robot and LaunchConfiguration('nav2')),
+              ),
+              # Nav2 Bringup for single robot
+              IncludeLaunchDescription(
+                  PythonLaunchDescriptionSource(
+                      os.path.join(pkg_nav2_bringup, 'launch', 'bringup_launch.py')
+                  ),
+                  launch_arguments={
+                    'map': LaunchConfiguration('map'),
+                    'autostart': 'True',
+                    'use_sim_time': 'True',
+                    'params_file': LaunchConfiguration('params_file'),
+                  }.items(),
+                  condition=IfCondition(one_robot),
+                  # condition=IfCondition(one_robot and LaunchConfiguration('nav2')),
               ),
           ]
         )
-        spawn_robots_group.append(group)
-        spawn_robots_group.append(group2)
-
-
-# TODO: THERE IS A CONFLICT BETWEEN THE ROS NAMESPACE I PUSH AND THE HANDLING ON THAT IN HTE NAV2 BRINGUP
-# SO WE SHOULD TO MOVE THE NAV2 BRINGUP STATEMENT TO A NEW ACTION WITHOUT PUSHING THE NAMESPACE.
+        spawn_robots_group.append(robots_group)
+        spawn_robots_group.append(nav_group)
 
     ld = LaunchDescription()
     ld.add_action(log_robots_by_user)
@@ -197,7 +212,11 @@ def generate_launch_description():
     ld.add_action(world_name_arg)
     ld.add_action(robots_arg)
     ld.add_action(gui_config_arg)
-    ld.add_action(map_path_arg)
+    ld.add_action(nav2_arg)
+    ld.add_action(map_name_arg)
+    ld.add_action(params_file_arg)
+    ld.add_action(log_world_path)
+    ld.add_action(log_map_path)
     ld.add_action(base_group)
     for group in spawn_robots_group:
         ld.add_action(group)
