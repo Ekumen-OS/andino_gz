@@ -19,8 +19,8 @@ def generate_launch_description():
     pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
 
     ros_bridge_arg = DeclareLaunchArgument(
-        'ros_bridge', default_value='true', description='Run ROS bridge node.')
-    rviz_arg = DeclareLaunchArgument('rviz', default_value='true', description='Start RViz.')
+        'ros_bridge', default_value='True', description='Run ROS bridge node.')
+    rviz_arg = DeclareLaunchArgument('rviz', default_value='True', description='Start RViz.')
     world_name_arg = DeclareLaunchArgument(
         'world_name', default_value='depot.sdf', description='Name of the world to load. Match with map if using Nav2.')
     robots_arg = DeclareLaunchArgument(
@@ -31,7 +31,7 @@ def generate_launch_description():
         default_value='default.config',
         description='Name of the gui configuration file to load.')
     nav2_arg = DeclareLaunchArgument(
-        'nav2', default_value='True',
+        'nav2', default_value='False',
         description='Enable Nav2 Bringup.')
     map_name_arg = DeclareLaunchArgument(
       'map', default_value="depot", description='Name of the map to load. It should match the world_name.'
@@ -114,6 +114,7 @@ def generate_launch_description():
             launch_configurations={
                 'rviz': rviz,
                 'ros_bridge': ros_bridge,
+                'nav2': nav2_flag,
             },
             actions=[
                 LogInfo(msg="Group for robot: " + robot_name),
@@ -135,12 +136,24 @@ def generate_launch_description():
                         'use_sim_time': 'true',
                     }.items(),
                 ),
-                # RViz
+                # RViz with nav2
                 Node(
-                    condition=IfCondition(rviz),
+                    condition=IfCondition(PythonExpression([rviz, ' and ', LaunchConfiguration('nav2')])),
                     package='rviz2',
                     executable='rviz2',
                     arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz_nav2.rviz')],
+                    parameters=[{'use_sim_time': True}],
+                    remappings=[
+                        ('/tf', 'tf'),
+                        ('/tf_static', 'tf_static'),
+                    ],
+                ),
+                # RViz without nav2
+                Node(
+                    condition=IfCondition(PythonExpression([rviz, ' and not ', LaunchConfiguration('nav2')])),
+                    package='rviz2',
+                    executable='rviz2',
+                    arguments=['-d', os.path.join(pkg_andino_gz, 'rviz', 'andino_gz.rviz')],
                     parameters=[{'use_sim_time': True}],
                     remappings=[
                         ('/tf', 'tf'),
@@ -182,8 +195,7 @@ def generate_launch_description():
                     'use_sim_time': 'True',
                     'params_file': LaunchConfiguration('params_file'),
                   }.items(),
-                  condition=IfCondition(more_than_one_robot),
-                  # condition=IfCondition(more_than_one_robot and LaunchConfiguration('nav2')),
+                  condition=IfCondition(PythonExpression([more_than_one_robot, ' and ', LaunchConfiguration('nav2')])),
               ),
               # Nav2 Bringup for single robot
               IncludeLaunchDescription(
@@ -196,11 +208,10 @@ def generate_launch_description():
                     'use_sim_time': 'True',
                     'params_file': LaunchConfiguration('params_file'),
                   }.items(),
-                  condition=IfCondition(one_robot),
-                  # condition=IfCondition(one_robot and LaunchConfiguration('nav2')),
+                  condition=IfCondition(PythonExpression([one_robot, ' and ', LaunchConfiguration('nav2')])),
               ),
-          ]
-        )
+            ]
+          )
         spawn_robots_group.append(robots_group)
         spawn_robots_group.append(nav_group)
 

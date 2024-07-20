@@ -53,9 +53,9 @@ Once the package is built and sourced, you can start a simulation.
   ros2 launch andino_gz andino_gz.launch.py
   ```
 
-_Note: You can use `--world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `empty.sdf`)_
+_Note: You can use `--world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `office.sdf`, `empty.sdf`)_
 
-By default the ros bridge and rviz is initialized. In case you prefer to disable any of those you can do it via its flags:
+By default the ros bridge and rviz are initialized. In case you prefer to disable any of those you can do it via its flags:
 
   ```sh
   ros2 launch andino_gz andino_gz.launch.py ros_bridge:=false rviz:=false
@@ -84,6 +84,7 @@ Also, consider using looking at the translation entries under `andino_gz/config/
   ```
 
   _Note: You can add as many as you want_
+  _Note2: When running with Nav2(Using nav2:=True) start easy with 2 robots and see how it performs in your system before usingm more robots._
 
   <img src="./docs/media/andino_gz_multi_robot.png" width="800"/>
 
@@ -101,6 +102,36 @@ Also, consider using looking at the translation entries under `andino_gz/config/
 
   Note: A ROS Namespace is pushed for each robot so all the topics and nodes are called the same with a difference of a `<robot_name>` prefix.
   Note2: In order to RViz2 to work with the ROS namespace that is pushed, one has to make sure that no absolute topics are being used.
+
+### Navigation
+
+<img src="./docs/media/andino_nav2.png" width="800"/>
+
+1. Run simulation and enable Nav2
+
+    ```sh
+    ros2 launch andino_gz andino_gz.launch.py nav2:=True
+    ```
+
+    As before, you can launch as many robots as you want, for example launching two:
+
+    ```sh
+    ros2 launch andino_gz andino_gz.launch.py nav2:=True robots:="andino1={x: 0.0, y: 0.0, z: 0.1, yaw: 0.};andino2={x: 1.0, y: 0.0, z: 0.1, yaw: 0.};" 
+    ```
+
+    Once Gazebo window pops up, play the simulation using the gui.
+
+2. An RViz window will be spawned for each robot so it can be controlled independently. Use `2D Pose Estimate` to pass a hint to AMCL where is the initial point
+  
+    Note you have to do it per robot, namely, per RViz window.
+
+
+    <img src="./docs/media/andino_nav2_pose_estimate.png" width="800"/>
+
+3. Send the desired goal using Nav2 Goal
+
+    <img src="./docs/media/andino_nav2_goal_pose.png" width="800"/>
+
 
 ### SLAM
 
