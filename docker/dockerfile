@@ -5,8 +5,8 @@ ARG USERID
 ARG USER
 
 # Setup environment
-ENV TERM linux
-ENV DEBIAN_FRONTEND noninteractive
+ENV TERM=linux
+ENV DEBIAN_FRONTEND=noninteractive
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 # Copy requirement files and install dependencies
@@ -14,18 +14,23 @@ COPY docker/requirements.txt .
 RUN apt-get update && apt-get install --no-install-recommends -y $(cat requirements.txt)
 RUN rm requirements.txt
 
-# Install Gazebo Fortress
-RUN sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-RUN wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
-RUN sudo apt-get update
-RUN sudo apt-get install ignition-fortress -y
+# Add the Gazebo repository and install Gazebo Harmonic
+RUN sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
+    wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
+    sudo apt update && \
+    sudo apt install -y gz-harmonic && \
+    sudo apt remove -y ros-humble-ros-gz* && \
+    sudo apt autoremove -y && \
+    sudo apt update && \
+    sudo apt install -y ros-humble-ros-gzharmonic && \
+    sudo rm -rf /var/lib/apt/lists/*
 
 # Create a user with passwordless sudo
 RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
 RUN adduser $USER sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
-RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
+RUN echo "export GZ_IP=127.0.0.1" >> /home/$USER/.bashrc
 USER $USER
 
 # Adds USER to dialout and plugdev group.
