@@ -73,9 +73,6 @@
       <visualize>true</visualize>
       <update_rate>10.0</update_rate>
     </sensor>
-    <plugin name="gz::sim::systems::Sensors" filename="libgz-sim-sensors-system.so">
-      <render_engine>ogre2</render_engine>
-    </plugin>
   </gazebo>
 
   <gazebo reference="camera_link">

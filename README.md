@@ -5,7 +5,7 @@
 
 ## :clipboard: Description
 
-This package provides a simulation environment for [Andino](https://github.com/Ekumen-OS/andino) in [Gazebo Fortress](https://gazebosim.org/home) relying on [ros_gz](https://github.com/gazebosim/ros_gz) to integrate it with ROS 2.
+This package provides a simulation environment for [Andino](https://github.com/Ekumen-OS/andino) in [Gazebo Harmonic](https://gazebosim.org/home) relying on [ros_gz](https://github.com/gazebosim/ros_gz) to integrate it with ROS 2.
 
 ## :clamp: Platforms
 
@@ -13,7 +13,7 @@ This package provides a simulation environment for [Andino](https://github.com/E
 - OS:
   - Ubuntu 22.04 Jammy Jellyfish
 - Gazebo:
-  - Fortress
+  - Harmonic
 
 ## :inbox_tray: Installation
 
