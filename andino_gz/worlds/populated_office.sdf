@@ -70,7 +70,7 @@
       <self_collide>false</self_collide>
     </model>
     <include>
-      <uri>file:///home/franco/ws/install/andino_gz/share/andino_gz/models/office</uri>
+      <uri>model://office</uri>
       <name>office</name>
       <pose>0 0 0 0 -0 0</pose>
     </include>
