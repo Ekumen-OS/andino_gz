@@ -53,7 +53,7 @@ Once the package is built and sourced, you can start a simulation.
   ros2 launch andino_gz andino_gz.launch.py
   ```
 
-_Note: You can use `--world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `office.sdf`, `empty.sdf`)_
+_Note: You can use `world_name` flag to indicate other [world](andino_gz/worlds/) to use. (For example: `depot.sdf`(default), `office.sdf`, `populated_office.sdf`, `empty.sdf`)_
 
 By default the ros bridge and rviz are initialized. In case you prefer to disable any of those you can do it via its flags:
 
@@ -65,6 +65,14 @@ To see a complete list of available arguments for the launch file do:
   ```sh
   ros2 launch andino_gz andino_gz.launch.py --show-args
   ```
+
+Using a different world:
+  ```sh
+  ros2 launch andino_gz andino_gz.launch.py world_name:=populated_office.sdf
+  ```
+
+<img src="./docs/media/populated_office.png" width="800"/>
+
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.
@@ -120,6 +128,19 @@ Also, consider using looking at the translation entries under `andino_gz/config/
     ```
 
     Once Gazebo window pops up, play the simulation using the gui.
+
+    **Important!**:
+      -  When using `nav2` flag, the `map` must match the selected `world`. For example:
+         -  For `depot.sdf` world, the map need to be `depot`:
+            ```
+            ros2 launch andino_gz andino_gz.launch.py nav2:=True world_name:=depot.sdf map:=depot
+            ```
+            Typically, as this is the default world-map, there is no need to indicate them.
+         -  For `office.sdf` and `populated_office.sdf` worlds, the map need to be `office`:
+            ```
+            ros2 launch andino_gz andino_gz.launch.py nav2:=True world_name:=office.sdf map:=office
+            ```
+
 
 2. An RViz window will be spawned for each robot so it can be controlled independently. Use `2D Pose Estimate` to pass a hint to AMCL where is the initial point
   
