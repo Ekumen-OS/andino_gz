@@ -1,7 +1,7 @@
 # Andino Gazebo Simulation
 
 
-<img src="./docs/media/andino_gz.png" width="800"/>
+<img src="./docs/media/populated_office.png" width="800"/>
 
 ## :clipboard: Description
 
@@ -46,6 +46,9 @@ source install/setup.bash
 ## :rocket: Usage
 
 ### Andino simulation
+
+<img src="./docs/media/andino_gz.png" width="800"/>
+
 
 Once the package is built and sourced, you can start a simulation.
 
