@@ -1,7 +1,7 @@
 # Andino Gazebo Simulation
 
 
-<img src="./docs/media/populated_office.png" width="800"/>
+<img src="./docs/media/populated_office_1.png" width="800"/>
 
 ## :clipboard: Description
 
@@ -74,7 +74,7 @@ Using a different world:
   ros2 launch andino_gz andino_gz.launch.py world_name:=populated_office.sdf
   ```
 
-<img src="./docs/media/populated_office.png" width="800"/>
+<img src="./docs/media/populated_office_2.png" width="800"/>
 
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
