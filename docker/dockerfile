@@ -13,6 +13,23 @@ COPY docker/requirements.txt .
 RUN apt-get update && apt-get install --no-install-recommends -y $(cat requirements.txt)
 RUN rm requirements.txt
 
+#####################################
+# ROS2 dependencies built from source
+#####################################
+
+# Prepare worksapce for ros2 packages built in the container
+RUN mkdir -p /home/$USER/ros_deps_ws/src
+WORKDIR /home/$USER/ros_deps_ws/src
+# Clone andino main repo
+RUN git clone https://github.com/Ekumen-OS/andino.git -b jazzy
+WORKDIR /home/$USER/ros_deps_ws
+# Rosdep install
+RUN . /opt/ros/jazzy/setup.sh && rosdep install -y -i --from-paths src
+# Build
+RUN . /opt/ros/jazzy/setup.sh && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
+# Adds overlay to the bashrc
+RUN echo "source /home/$USER/ros_deps_ws/install/setup.bash" >> /home/$USER/.bashrc
+
 # Add the Gazebo repository and install Gazebo Harmonic
 RUN sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \

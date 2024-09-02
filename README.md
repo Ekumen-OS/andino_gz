@@ -148,7 +148,7 @@ Also, consider using looking at the translation entries under `andino_gz/config/
     ros2 launch andino_gz slam_toolbox_online_async.launch.py
     ```
 
-    Configuration can be forwarded to the `slam_toolbox_node`. By default, the configuration parameters are obtained from [andino's configuration file](https://github.com/Ekumen-OS/andino/blob/humble/andino_slam/config/slam_toolbox_online_async.yaml). In case a custom file is wanted to be passed, simply use the launch file argument for indicating the path to a new file.
+    Configuration can be forwarded to the `slam_toolbox_node`. By default, the configuration parameters are obtained from [andino's configuration file](https://github.com/Ekumen-OS/andino/blob/jazzy/andino_slam/config/slam_toolbox_online_async.yaml). In case a custom file is wanted to be passed, simply use the launch file argument for indicating the path to a new file.
 
     ```
     ros2 launch andino_gz slam_toolbox_online_async.launch.py slams_param_file:=<my_path>
