@@ -16,6 +16,7 @@
       <ambient>0.4 0.4 0.4 1</ambient>
       <background>0.7 0.7 0.7 1</background>
       <shadows>1</shadows>
+      <grid>0</grid>
     </scene>
     <light name='sun' type='directional'>
       <cast_shadows>1</cast_shadows>
@@ -63,66 +64,15 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <visual name='visual'>
-          <cast_shadows>0</cast_shadows>
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-          <material>
-            <ambient>0.0 0.0 1.0 1.0</ambient>
-            <diffuse>1.0 1.0 1.0 1.0</diffuse>
-            <specular>0.1 0.1 0.1 1.0</specular>
-            <emissive>0.0 0.0 0.0 1.0</emissive>
-          </material>
-        </visual>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
       </link>
     </model>
-    <model name='hq'>
-      <link name='walls'>
-        <pose>1e-06 -5e-06 0 0 -0 0</pose>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-        <visual name='visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://office.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <lighting>1</lighting>
-            <ambient>1.0 1.0 1.0 1.0</ambient>
-            <diffuse>1.0 1.0 1.0 1.0</diffuse>
-            <specular>0.1 0.1 0.1 1.0</specular>
-            <emissive>0.0 0.0 0.0 1.0</emissive>
-            <shader type='pixel'/>
-          </material>
-          <transparency>0</transparency>
-          <cast_shadows>1</cast_shadows>
-        </visual>
-        <collision name='collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://office.stl</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-        </collision>
-      </link>
-      <static>1</static>
-      <allow_auto_disable>1</allow_auto_disable>
-      <pose>-1.90399 -7.35802 0 0 -0 0</pose>
-    </model>
+    <include>
+      <uri>
+        model://office
+      </uri>
+    </include>
   </world>
 </sdf>

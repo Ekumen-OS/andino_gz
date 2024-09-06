@@ -7,7 +7,7 @@ from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDesc
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression, TextSubstitution
-from launch_ros.actions import Node, PushRosNamespace
+from launch_ros.actions import Node, PushRosNamespace, SetRemap
 
 from nav2_common.launch import ParseMultiRobotPose
 
@@ -182,6 +182,11 @@ def generate_launch_description():
               'nav2': nav2_flag,
           },
           actions=[
+              # Remapping scan topics for Nav2 local and global costmap.
+              # As we use relative values in the param file for supporting multiple robots,
+              # the scan topic needs to be remapped otherwise goes under global-costmap/scan topic.
+              SetRemap(src='/' + robot_name + '/global_costmap/scan', dst='/' + robot_name + '/scan', condition=IfCondition(PythonExpression([more_than_one_robot, ' and ', LaunchConfiguration('nav2')]))),
+              SetRemap(src='/' + robot_name + '/local_costmap/scan', dst='/' + robot_name + '/scan', condition=IfCondition(PythonExpression([more_than_one_robot, ' and ', LaunchConfiguration('nav2')]))),
               # Nav2 Bringup for multiple robots
               IncludeLaunchDescription(
                   PythonLaunchDescriptionSource(
@@ -197,6 +202,8 @@ def generate_launch_description():
                   }.items(),
                   condition=IfCondition(PythonExpression([more_than_one_robot, ' and ', LaunchConfiguration('nav2')])),
               ),
+              SetRemap(src='/global_costmap/scan', dst='/scan', condition=IfCondition(PythonExpression([one_robot, ' and ', LaunchConfiguration('nav2')]))),
+              SetRemap(src='/local_costmap/scan', dst='/scan', condition=IfCondition(PythonExpression([one_robot, ' and ', LaunchConfiguration('nav2')]))),
               # Nav2 Bringup for single robot
               IncludeLaunchDescription(
                   PythonLaunchDescriptionSource(

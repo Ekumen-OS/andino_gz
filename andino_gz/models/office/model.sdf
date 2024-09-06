@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name='office'>
+    <static>1</static>
+    <link name='walls'>
+      <collision name='collision'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/walls.dae</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <friction>
+            <ode/>
+          </friction>
+          <bounce/>
+          <contact/>
+        </surface>
+      </collision>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/walls.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 0</specular> 
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/walls/macro_flour_diff_4k.jpg</albedo_map>
+              <normal_map>materials/textures/walls/macro_flour_nor_gl_4k.exr</normal_map>
+              <roughness_map>materials/textures/walls/macro_flour_rough_4k.exr</roughness_map>
+              <metalness>0.</metalness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+    <link name='wood_floor'>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/wood.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>1 1 1 1</specular> 
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/wood/wood_floor_diff_4k.jpg</albedo_map>
+              <normal_map>materials/textures/wood/wood_floor_nor_gl_4k.exr</normal_map>
+              <roughness_map>materials/textures/wood/wood_floor_rough_4k.exr</roughness_map>
+              <metalness>0.</metalness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+    <link name='tiles'>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/tiles.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>1 1 1 1</specular> 
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/tiles/Tiles054_1K-JPG_Color.jpg</albedo_map>
+              <normal_map>materials/textures/tiles/Tiles054_1K-JPG_NormalDX.jpg</normal_map>
+              <roughness_map>materials/textures/tiles/Tiles054_1K-JPG_Roughness.jpg</roughness_map>
+              <metalness>0.</metalness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
+    
+    <pose>0 0 0 0 0 0</pose>
+  </model>
+</sdf>

@@ -1,0 +1,492 @@
+<sdf version='1.9'>
+  <world name='gazebo_world'>
+    <physics name='1ms' type='ignored'>
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+    <plugin name='ignition::gazebo::systems::Physics' filename='libignition-gazebo-physics-system.so'/>
+    <plugin name='ignition::gazebo::systems::UserCommands' filename='libignition-gazebo-user-commands-system.so'/>
+    <plugin name='ignition::gazebo::systems::SceneBroadcaster' filename='libignition-gazebo-scene-broadcaster-system.so'/>
+    <plugin name='ignition::gazebo::systems::Imu' filename='ignition-gazebo-imu-system'/>
+    <plugin name='ignition::gazebo::systems::Sensors' filename='ignition-gazebo-sensors-system'>
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+      <grid>false</grid>
+    </scene>
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <model name='ground_plane'>
+      <static>true</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <contact>
+              <collide_bitmask>65535</collide_bitmask>
+              <ode/>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <self_collide>false</self_collide>
+        <enable_wind>false</enable_wind>
+        <kinematic>false</kinematic>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia>
+            <ixx>1</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>1</iyy>
+            <iyz>0</iyz>
+            <izz>1</izz>
+          </inertia>
+        </inertial>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+    <include>
+      <uri>model://office</uri>
+      <name>office</name>
+      <pose>0 0 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk</name>
+      <pose>8.25108 6.47514 0 0 0 -3.13045</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0</name>
+      <pose>9.04683 6.49999 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_1</name>
+      <pose>14.3794 6.45818 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_1</name>
+      <pose>7.49137 6.97811 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3</name>
+      <pose>13.0413 6.65797 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4</name>
+      <pose>14.8336 6.68779 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1</name>
+      <pose>9.72933 6.68377 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_1</name>
+      <pose>8.93931 1.27259 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_2</name>
+      <pose>13.1974 1.28853 0 0 0 -3.14106</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_3</name>
+      <pose>14.0133 1.28095 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_4</name>
+      <pose>13.8011 -6.60858 0 0 0 -3.13553</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_5</name>
+      <pose>14.5855 -6.58799 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_1</name>
+      <pose>7.45993 1.50413 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_3</name>
+      <pose>12.4399 1.50801 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_4</name>
+      <pose>13.0866 -6.70783 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_6</name>
+      <pose>9.72069 -4.79187 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_1</name>
+      <pose>9.767 1.5434 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_4</name>
+      <pose>14.9595 1.41616 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_5</name>
+      <pose>11.8508 -5.2148 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_6</name>
+      <pose>12.0235 -7.07991 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_7</name>
+      <pose>15.3425 -6.89334 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_5_1</name>
+      <pose>7.1613 -5.32192 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_8_1</name>
+      <pose>8.53263 -5.09823 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_8_3</name>
+      <pose>7.8541 -3.90095 0 0 -0 3.13555</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Table</uri>
+      <name>DiningTable</name>
+      <pose>-7.99026 -5.81002 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Table</uri>
+      <name>DiningTable_1</name>
+      <pose>-10.6015 -5.71993 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Table</uri>
+      <name>DiningTable_0</name>
+      <pose>-12.9927 -5.74962 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair</name>
+      <pose>-7.01329 -5.18168 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_1</name>
+      <pose>-7.16359 -6.07236 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_2</name>
+      <pose>-10.0641 -5.16342 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_3</name>
+      <pose>-10.0825 -6.0798 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_4</name>
+      <pose>-12.6216 -5.23841 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_5</name>
+      <pose>-12.6257 -6.0325 0 0 0 -1.49739</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6</name>
+      <pose>-13.855 -5.20829 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6_1</name>
+      <pose>-14.1182 -6.35071 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6_2</name>
+      <pose>-11.2189 -5.29598 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6_3</name>
+      <pose>-11.2511 -6.27126 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6_4</name>
+      <pose>-8.45856 -5.46119 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Chair</uri>
+      <name>DiningChair_6_5</name>
+      <pose>-8.26006 -6.4093 0 0 -0 1.65578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sofa</uri>
+      <name>Sofa</name>
+      <pose>-1.28244 0.550888 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Sofa</uri>
+      <name>Sofa_1</name>
+      <pose>3.07108 0.56092 0 -0 -0 3.12992</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Table</uri>
+      <name>DiningTable_2</name>
+      <pose>0.81366 0.523225 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_1_1</name>
+      <pose>13.5549 6.46082 0 0 -0 3.13906</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_8</name>
+      <pose>12.9192 4.67331 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_1_5</name>
+      <pose>8.13566 1.26132 0 0 0 -3.13131</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_4_1</name>
+      <pose>10.3854 -6.62445 0 0 0 -3.13553</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_5_1</name>
+      <pose>11.1522 -6.62803 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/FoodCourtTable1</uri>
+      <name>FoodCourtTable1</name>
+      <pose>2.85995 4.37927 0 0 -0 1.56065</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/FoodCourtTable1</uri>
+      <name>FoodCourtTable1_0</name>
+      <pose>2.42896 -4.01751 0 0 -0 1.58578</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/malbonico/models/Table</uri>
+      <name>Table</name>
+      <pose>-8.36535 5.88024 0 0 -0 1.58387</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/malbonico/models/Table</uri>
+      <name>Table_1</name>
+      <pose>-10.7449 6.05351 0 0 -0 1.58387</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/malbonico/models/Table</uri>
+      <name>Table_2</name>
+      <pose>-8.54777 0.82201 0 0 -0 1.58387</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/malbonico/models/Table</uri>
+      <name>Table_3</name>
+      <pose>-6.10127 0.68309 0 0 -0 1.58387</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_1_1_1</name>
+      <pose>13.5534 4.86826 0 0 -0 3.13906</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_1_2</name>
+      <pose>14.3747 4.86593 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_2_1</name>
+      <pose>14.9729 4.51248 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_6</name>
+      <pose>9.03829 4.77721 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_3</name>
+      <pose>8.25252 4.77114 0 0 0 -3.13045</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_2_1</name>
+      <pose>9.63825 4.4184 0 0 -0 1.54908</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_5</name>
+      <pose>7.40231 4.63782 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_3_1</name>
+      <pose>14.0044 -0.183138 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_2_1</name>
+      <pose>13.1944 -0.181926 0 0 0 -3.14106</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_3_1</name>
+      <pose>14.7547 -0.452251 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_2_1</name>
+      <pose>12.4821 -0.636777 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_1_1</name>
+      <pose>8.95605 -0.092197 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_1_5_1</name>
+      <pose>8.15218 -0.102804 0 0 0 -3.13131</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_2_1</name>
+      <pose>9.73681 -0.444127 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_1_1_1</name>
+      <pose>7.38491 -0.556488 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_5_2</name>
+      <pose>14.5788 -5.01387 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_4_2</name>
+      <pose>13.767 -5.02006 0 0 0 -3.13553</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_4_1_8_4</name>
+      <pose>15.3689 -4.69294 0 0 -0 1.66721</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_4_1</name>
+      <pose>13.1402 -4.68211 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_5_1_1</name>
+      <pose>11.1566 -5.08818 0 0 -0 0</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk</uri>
+      <name>Desk_0_4_1_1</name>
+      <pose>10.3778 -5.09096 0 0 0 -3.13553</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair</uri>
+      <name>OfficeChair_3_6_2_1</name>
+      <pose>9.73727 -6.8832 0 0 0 -1.65116</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/openrobotics/models/fridge/2</uri>
+      <name>Fridge</name>
+      <pose>-6.55932 -7.36499 0 0 0 -3.11318</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/openrobotics/models/table/4</uri>
+      <name>Table_0</name>
+      <pose>7.715 -5.01314 0 0 -0 1.58661</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/makerspet/models/tv_65in/1</uri>
+      <name>tv_65in</name>
+      <pose>7.73696 -7.65427 1.47068 0 0 -1.56595</pose>
+    </include>
+    <include>
+      <uri>https://fuel.gazebosim.org/openrobotics/models/table/4</uri>
+      <name>Table_0_1</name>
+      <pose>7.73014 -6.24268 -0.013012 0 -0 1.58661</pose>
+    </include>
+    <light name='sun' type='directional'>
+      <pose>0 0 10 0 -0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>-0.5 0.1 -0.9</direction>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <linear>0.01</linear>
+        <constant>0.90000000000000002</constant>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
+    </light>
+  </world>
+</sdf>
