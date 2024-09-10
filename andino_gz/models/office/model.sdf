@@ -91,6 +91,18 @@
             <uri>meshes/roof.dae</uri>
           </mesh>
         </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0 0 0 0</specular> 
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/walls/macro_flour_diff_4k.jpg</albedo_map>
+              <normal_map>materials/textures/walls/macro_flour_nor_gl_4k.exr</normal_map>
+              <roughness_map>materials/textures/walls/macro_flour_rough_4k.exr</roughness_map>
+              <metalness>0.</metalness>
+            </metal>
+          </pbr>
+        </material>
       </visual>
     </link>
     <pose>0 0 0 0 0 0</pose>
