@@ -83,7 +83,16 @@
         </material>
       </visual>
     </link>
-    
+    <link name='roof'>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/roof.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
     <pose>0 0 0 0 0 0</pose>
   </model>
 </sdf>
