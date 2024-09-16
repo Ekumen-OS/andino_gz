@@ -3,7 +3,7 @@ Please remove the appropriate section.
 For example, if this is a new feature, remove all sections except for the "New feature" section
 
 If this is your first time opening a PR, be sure to check the contribution guide:
-https://github.com/Ekumen-OS/andino_gz/blob/humble/CONTRIBUTING.md
+https://github.com/Ekumen-OS/andino_gz/blob/jazzy/CONTRIBUTING.md
 -->
 
 # 🦟 Bug fix
@@ -40,4 +40,3 @@ context (e.g., screenshots, gifs) if appropriate.-->
 - [ ] Added example and/or tutorial
 - [ ] Updated documentation (as needed)
 - [ ] Updated migration guide (as needed)
-

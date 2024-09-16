@@ -1,8 +1,7 @@
-FROM osrf/ros:humble-desktop-full
+FROM osrf/ros:jazzy-desktop-full
 
 # Arguments for building
-ARG USERID
-ARG USER
+ARG USER=ubuntu
 
 # Setup environment
 ENV TERM=linux
@@ -14,24 +13,39 @@ COPY docker/requirements.txt .
 RUN apt-get update && apt-get install --no-install-recommends -y $(cat requirements.txt)
 RUN rm requirements.txt
 
+#####################################
+# ROS2 dependencies built from source
+#####################################
+
+# Prepare worksapce for ros2 packages built in the container
+RUN mkdir -p /home/$USER/ros_deps_ws/src
+WORKDIR /home/$USER/ros_deps_ws/src
+# Clone andino main repo
+RUN git clone https://github.com/Ekumen-OS/andino.git -b jazzy
+WORKDIR /home/$USER/ros_deps_ws
+# Rosdep install
+RUN . /opt/ros/jazzy/setup.sh && rosdep install -y -i --from-paths src
+# Build
+RUN . /opt/ros/jazzy/setup.sh && colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
+# Adds overlay to the bashrc
+RUN echo "source /home/$USER/ros_deps_ws/install/setup.bash" >> /home/$USER/.bashrc
+
 # Add the Gazebo repository and install Gazebo Harmonic
 RUN sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/pkgs-osrf-archive-keyring.gpg] http://packages.osrfoundation.org/gazebo/ubuntu-stable $(lsb_release -cs) main" > /etc/apt/sources.list.d/gazebo-stable.list' && \
     wget https://packages.osrfoundation.org/gazebo.gpg -O /usr/share/keyrings/pkgs-osrf-archive-keyring.gpg && \
     sudo apt update && \
-    sudo apt install -y gz-harmonic && \
-    sudo apt remove -y ros-humble-ros-gz* && \
-    sudo apt autoremove -y && \
-    sudo apt update && \
-    sudo apt install -y ros-humble-ros-gzharmonic && \
-    sudo rm -rf /var/lib/apt/lists/*
+    sudo apt install -y gz-harmonic
 
 # Create a user with passwordless sudo
-RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
-RUN adduser $USER sudo
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
-RUN echo "export GZ_IP=127.0.0.1" >> /home/$USER/.bashrc
-USER $USER
+
+# Install fixuid and configure it
+RUN curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.6.0/fixuid-0.6.0-linux-amd64.tar.gz | tar -C /usr/local/bin -xzf - && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    printf "user: $USER\ngroup: $USER\n" > /etc/fixuid/config.yml
 
 # Adds USER to dialout and plugdev group.
 # This is needed to access the serial ports, for further references check
@@ -39,18 +53,21 @@ USER $USER
 RUN sudo usermod -a -G dialout $USER
 RUN sudo usermod -a -G plugdev $USER
 
+USER $USER
+
 # Creates the src folder of the workspace.
 RUN mkdir -p /home/$USER/ws/src
 
-# Adds to bashrc the ros humble overlay sourcing.
-RUN echo "source /opt/ros/humble/setup.bash" >> /home/$USER/.bashrc
-# Adds colcon autocomplete
-RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> /home/$USER/.bashrc
+# Adds to bashrc the ros jazzy overlay sourcing.
+RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USER/.bashrc
 
 # Updates
 RUN sudo apt upgrade -y && sudo apt update && rosdep update
 
 # Defines a workspace folder.
 WORKDIR /home/$USER/ws
+
+# Use fixuid as the entrypoint in quiet mode
+ENTRYPOINT ["fixuid", "-q"]
 
 CMD ["/bin/bash"]

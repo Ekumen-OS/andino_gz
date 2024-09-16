@@ -12,7 +12,7 @@
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <!-- 'gz-sim8' for Gazebo Harmonic isn't added as it can't get its keys resolved -->
+  <exec_depend>gz-sim8</exec_depend>
   <exec_depend>andino_description</exec_depend>
   <exec_depend>andino_slam</exec_depend>
   <exec_depend>nav2_bringup</exec_depend>

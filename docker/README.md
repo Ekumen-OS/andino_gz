@@ -17,7 +17,7 @@ For NVIDIA GPU support, `nvidia-container-toolkit` should be installed. *Skip th
 
 #### Building image and running container
 
-- Build the docker image whose default name is `ros2_humble_andino_gz`:
+- Build the docker image whose default name is `ros2_jazzy_andino_gz`:
 
 ```sh
 ./docker/build.sh
@@ -29,7 +29,7 @@ You can also try to set a specific image name:
 ./docker/build.sh -i my_fancy_image_name
 ```
 
-- Run a docker container from `ros2_humble_andino_gz` called `ros2_humble_andino_gz_container`:
+- Run a docker container from `ros2_jazzy_andino_gz` called `ros2_jazzy_andino_gz_container`:
 
 ```sh
 ./docker/run.sh
@@ -47,19 +47,8 @@ You can also try to set specific image and container names:
 ./docker/run.sh --use_nvidia -i my_fancy_image_name -c my_fancy_container_name
 ```
 
-- Inside the container, install dependencies via `rosdep`:
+With this, you can just source the workspace and start testing it out, as the dependencies and the workspace have been already installed during the building process:
 
-  ```sh
-  rosdep install -i -y --rosdistro humble --from-paths src
-  ```
-
-Note that the repository is mounted into a workspace. That is convenient if you
-are working in a single repository project. Note that for multi-repository
-workspace you should use another tool like vcs-tool to control via a `.repos`
-file the repositories in your workspace.
-
-- To build:
-
-  ```sh
-  colcon build
-  ```
+```sh
+source ./install/setup.bash
+```

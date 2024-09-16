@@ -36,8 +36,8 @@ set +e
 function show_help() {
   echo $'\nUsage:\t run.sh [OPTIONS] \n
   Options:\n
-  \t-i --image_name\t\t Name of the image to be run (default ros2_humble_andino_gz).\n
-  \t-c --container_name\t Name of the container(default ros2_humble_andino_gz_container).\n
+  \t-i --image_name\t\t Name of the image to be run (default ros2_jazzy_andino_gz).\n
+  \t-c --container_name\t Name of the container(default ros2_jazzy_andino_gz_container).\n
   \t--use_nvidia\t\t Use nvidia runtime.\n
   Examples:\n
   \trun.sh\n
@@ -79,12 +79,14 @@ done
 
 # Update the arguments to default values if needed.
 
-IMAGE_NAME=${IMAGE_NAME:-ros2_humble_andino_gz}
-CONTAINER_NAME=${CONTAINER_NAME:-ros2_humble_andino_gz_container}
+IMAGE_NAME=${IMAGE_NAME:-ros2_jazzy_andino_gz}
+CONTAINER_NAME=${CONTAINER_NAME:-ros2_jazzy_andino_gz_container}
+
+USER=ubuntu
 
 SSH_PATH=/home/$USER/.ssh
-WORKSPACE_SRC_CONTAINER=/home/$(whoami)/ws/src/$REPOSITORY_FOLDER_NAME
-WORKSPACE_ROOT_CONTAINER=/home/$(whoami)/ws
+WORKSPACE_SRC_CONTAINER=/home/$USER/ws/src/$REPOSITORY_FOLDER_NAME
+WORKSPACE_ROOT_CONTAINER=/home/$USER/ws
 SSH_AUTH_SOCK_USER=$SSH_AUTH_SOCK
 
 # Create cache folders to store colcon build files
@@ -92,8 +94,8 @@ mkdir -p ${REPOSITORY_FOLDER_PATH}/.build
 mkdir -p ${REPOSITORY_FOLDER_PATH}/.install
 
 # Transfer the ownership to the user
-chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.build
-chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.install
+# chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.build
+# chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.install
 
 # Check if name container is already taken.
 if sudo -g docker docker container ls -a | grep "${CONTAINER_NAME}$" -c &> /dev/null; then
