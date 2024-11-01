@@ -17,6 +17,17 @@ This package provides a simulation environment for [Andino](https://github.com/E
 
 ## :inbox_tray: Installation
 
+### From binaries
+
+1. Meet prerequisites: [ROS 2 Humble installation](https://docs.ros.org/en/humble/Installation.html)
+2. Install `andino_gz` package
+   ```
+   sudo apt install ros-humble-andino-gz
+   ```
+3. You can jump directly to [Usage](#rocket-usage) section and start using it.
+
+### From source using a containerized environment
+
 1. Clone this repository
 
 ```sh
