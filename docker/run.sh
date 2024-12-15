@@ -109,6 +109,7 @@ xhost +
 sudo docker run -it --privileged --net=host --ipc=host --pid=host -it \
         $NVIDIA_FLAGS \
        -e DISPLAY=$DISPLAY \
+       -e ROS_DOMAIN_ID=0 \
        -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK_USER \
        -v $(dirname $SSH_AUTH_SOCK_USER):$(dirname $SSH_AUTH_SOCK_USER) \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
