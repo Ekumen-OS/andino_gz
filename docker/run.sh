@@ -82,8 +82,6 @@ done
 IMAGE_NAME=${IMAGE_NAME:-ros2_jazzy_andino_gz}
 CONTAINER_NAME=${CONTAINER_NAME:-ros2_jazzy_andino_gz_container}
 
-USER=ubuntu
-
 SSH_PATH=/home/$USER/.ssh
 WORKSPACE_SRC_CONTAINER=/home/$USER/ws/src/$REPOSITORY_FOLDER_NAME
 WORKSPACE_ROOT_CONTAINER=/home/$USER/ws
@@ -94,8 +92,8 @@ mkdir -p ${REPOSITORY_FOLDER_PATH}/.build
 mkdir -p ${REPOSITORY_FOLDER_PATH}/.install
 
 # Transfer the ownership to the user
-# chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.build
-# chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.install
+chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.build
+chown -R "$USER" ${REPOSITORY_FOLDER_PATH}/.install
 
 # Check if name container is already taken.
 if sudo -g docker docker container ls -a | grep "${CONTAINER_NAME}$" -c &> /dev/null; then
