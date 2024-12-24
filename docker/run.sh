@@ -59,6 +59,7 @@ echo "Running the container..."
 
 # Location of the repository
 REPOSITORY_FOLDER_PATH="$(cd "$(dirname "$0")"; cd ..; pwd)"
+REPOSITORY_FOLDER_PARENT_PATH="$(dirname $REPOSITORY_FOLDER_PATH)"
 REPOSITORY_FOLDER_NAME=$( basename $REPOSITORY_FOLDER_PATH )
 
 DSIM_REPOS_PARENT_FOLDER_PATH="$(cd "$(dirname "$0")"; cd ..; pwd)"
@@ -85,7 +86,8 @@ CONTAINER_NAME=${CONTAINER_NAME:-ros2_jazzy_andino_gz_container}
 USER=ubuntu
 
 SSH_PATH=/home/$USER/.ssh
-WORKSPACE_SRC_CONTAINER=/home/$USER/ws/src/$REPOSITORY_FOLDER_NAME
+WORKSPACE_SRC_CONTAINER=/home/$USER/ws/src
+WORKSPACE_SRC_REPO_CONTAINER=${WORKSPACE_SRC_CONTAINER}/$REPOSITORY_FOLDER_NAME
 WORKSPACE_ROOT_CONTAINER=/home/$USER/ws
 SSH_AUTH_SOCK_USER=$SSH_AUTH_SOCK
 
@@ -113,7 +115,7 @@ sudo docker run -it --privileged --net=host --ipc=host --pid=host -it \
        -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK_USER \
        -v $(dirname $SSH_AUTH_SOCK_USER):$(dirname $SSH_AUTH_SOCK_USER) \
        -v /tmp/.X11-unix:/tmp/.X11-unix \
-       -v ${REPOSITORY_FOLDER_PATH}:$WORKSPACE_SRC_CONTAINER \
+       -v ${REPOSITORY_FOLDER_PARENT_PATH}:$WORKSPACE_SRC_CONTAINER \
        -v ${REPOSITORY_FOLDER_PATH}/.build:$WORKSPACE_ROOT_CONTAINER/build:rw \
        -v ${REPOSITORY_FOLDER_PATH}/.install:$WORKSPACE_ROOT_CONTAINER/install:rw \
        -v $SSH_PATH:$SSH_PATH \
