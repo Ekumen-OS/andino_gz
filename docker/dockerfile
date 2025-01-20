@@ -61,6 +61,10 @@ RUN mkdir -p /home/$USER/ws/src
 # Adds to bashrc the ros jazzy overlay sourcing.
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USER/.bashrc
 
+# Source the setup.bash script from the working directory
+RUN echo "if [ -f ./install/setup.bash ]; then source ./install/setup.bash; fi" >> /home/$USER/.bashrc
+
+
 # Updates
 RUN sudo apt upgrade -y && sudo apt update && rosdep update
 
