@@ -87,6 +87,12 @@ Using a different world:
 
 <img src="./docs/media/populated_office_2.png" width="800"/>
 
+It is also possible to use a custom world and map by adding `worlds` and `maps` folder under `GZ_RESOURCE_PATH`.
+
+ ```sh
+  export GZ_RESOURCE_PATH='$HOME/gz_resource'
+  ros2 launch andino_gz andino_gz.launch.py world_name:=custom_world.sdf map:=custom_map
+  ```
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
 Also, consider using looking at the translation entries under `andino_gz/config/bridge_config.yaml`.

@@ -17,6 +17,7 @@ from andino_gz.launch_tools.substitutions import TextJoin
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
     pkg_nav2_bringup = get_package_share_directory('nav2_bringup')
+    gz_resource_path = os.environ.get("GZ_RESOURCE_PATH", pkg_andino_gz)
 
     ros_bridge_arg = DeclareLaunchArgument(
         'ros_bridge', default_value='True', description='Run ROS bridge node.')
@@ -52,10 +53,10 @@ def generate_launch_description():
     params_file = LaunchConfiguration('params_file')
 
     # Obtains world path.
-    world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
+    world_path = PathJoinSubstitution([gz_resource_path, 'worlds', world_name])
     log_world_path = LogInfo(msg=TextJoin(substitutions=["World path: ", world_path]))
     # Obtains the map path.
-    map_path = PathJoinSubstitution([pkg_andino_gz, 'maps', map_name, TextJoin(substitutions=[map_name ,'.yaml'])])
+    map_path = PathJoinSubstitution([gz_resource_path, 'maps', map_name, TextJoin(substitutions=[map_name ,'.yaml'])])
     log_map_path = LogInfo(msg=TextJoin(substitutions=["Map path: ", map_path]))
     # Gazebo arguments.
     gz_args = TextJoin(
