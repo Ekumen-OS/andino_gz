@@ -196,6 +196,108 @@ controller_server:
       RotateToGoal.slowing_factor: 5.0
       RotateToGoal.lookahead_time: -1.0
 
+collision_monitor:
+  ros__parameters:
+    base_frame_id: "base_footprint"
+    odom_frame_id: "odom"
+    cmd_vel_in_topic: "cmd_vel_smoothed"
+    cmd_vel_out_topic: "cmd_vel"
+    state_topic: "collision_monitor_state"
+    transform_tolerance: 0.5
+    source_timeout: 5.0
+    base_shift_correction: True
+    stop_pub_timeout: 2.0
+    # Polygons represent zone around the robot for "stop", "slowdown" and "limit" action types,
+    # and robot footprint for "approach" action type.
+    # (1) Footprint could be "polygon" type with dynamically set footprint from footprint_topic
+    # (2) "circle" type with static footprint set by radius. "footprint_topic" parameter
+    # to be ignored in circular case.
+    # (3) "velocity_polygon" type with dynamically set polygon from velocity_polygons
+    polygons: ["PolygonStop"]
+    PolygonStop:
+      type: "polygon"
+      points: "[[0.3, 0.3], [0.3, -0.3], [0.0, -0.3], [0.0, 0.3]]"
+      action_type: "stop"
+      min_points: 4
+      visualize: True
+      polygon_pub_topic: "polygon_stop"
+      enabled: True
+    PolygonSlow:
+      type: "polygon"
+      points: "[[0.4, 0.4], [0.4, -0.4], [-0.4, -0.4], [-0.4, 0.4]]"
+      action_type: "slowdown"
+      min_points: 4
+      slowdown_ratio: 0.3
+      visualize: True
+      polygon_pub_topic: "polygon_slowdown"
+      enabled: True
+    PolygonLimit:
+      type: "polygon"
+      points: "[[0.5, 0.5], [0.5, -0.5], [-0.5, -0.5], [-0.5, 0.5]]"
+      action_type: "limit"
+      min_points: 4
+      linear_limit: 0.4
+      angular_limit: 0.5
+      visualize: True
+      polygon_pub_topic: "polygon_limit"
+      enabled: True
+    FootprintApproach:
+      type: "polygon"
+      action_type: "approach"
+      footprint_topic: "/local_costmap/published_footprint"
+      time_before_collision: 2.0
+      simulation_time_step: 0.1
+      min_points: 6
+      visualize: False
+      enabled: True
+    VelocityPolygonStop:
+      type: "velocity_polygon"
+      action_type: "stop"
+      min_points: 6
+      visualize: True
+      enabled: True
+      polygon_pub_topic: "velocity_polygon_stop"
+      velocity_polygons: ["rotation", "translation_forward", "translation_backward", "stopped"]
+      holonomic: false
+      rotation:
+        points: "[[0.3, 0.3], [0.3, -0.3], [-0.3, -0.3], [-0.3, 0.3]]"
+        linear_min: 0.0
+        linear_max: 0.05
+        theta_min: -1.0
+        theta_max: 1.0
+      translation_forward:
+        points: "[[0.35, 0.3], [0.35, -0.3], [-0.2, -0.3], [-0.2, 0.3]]"
+        linear_min: 0.0
+        linear_max: 1.0
+        theta_min: -1.0
+        theta_max: 1.0
+      translation_backward:
+        points: "[[0.2, 0.3], [0.2, -0.3], [-0.35, -0.3], [-0.35, 0.3]]"
+        linear_min: -1.0
+        linear_max: 0.0
+        theta_min: -1.0
+        theta_max: 1.0
+      # This is the last polygon to be checked, it should cover the entire range of robot's velocities
+      # It is used as the stopped polygon when the robot is not moving and as a fallback if the velocity
+      # is not covered by any of the other sub-polygons 
+      stopped:
+        points: "[[0.25, 0.25], [0.25, -0.25], [-0.25, -0.25], [-0.25, 0.25]]"
+        linear_min: -1.0
+        linear_max: 1.0
+        theta_min: -1.0
+        theta_max: 1.0
+    observation_sources: ["scan"]
+    scan:
+      type: "scan"
+      topic: "scan"
+      enabled: True
+    pointcloud:
+      type: "pointcloud"
+      topic: "/intel_realsense_r200_depth/points"
+      min_height: 0.1
+      max_height: 0.5
+      enabled: True
+
 local_costmap:
   local_costmap:
     ros__parameters:
@@ -213,7 +315,7 @@ local_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 2.0
-        inflation_radius: 0.2
+        inflation_radius: 0.15
       voxel_layer:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
@@ -247,7 +349,7 @@ global_costmap:
       global_frame: map
       robot_base_frame: base_link
       use_sim_time: True
-      robot_radius: 0.22
+      robot_radius: 0.12
       resolution: 0.05
       track_unknown_space: true
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
@@ -271,7 +373,7 @@ global_costmap:
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         cost_scaling_factor: 2.0
-        inflation_radius: 0.2
+        inflation_radius: 0.15
       always_send_full_costmap: True
 
 map_server:
@@ -295,7 +397,7 @@ planner_server:
     use_sim_time: True
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
+      plugin: "nav2_navfn_planner::NavfnPlanner"
       tolerance: 0.5
       use_astar: true
       allow_unknown: true
@@ -317,15 +419,15 @@ behavior_server:
     cycle_frequency: 10.0
     behavior_plugins: ["spin", "backup", "drive_on_heading", "assisted_teleop", "wait"]
     spin:
-      plugin: "nav2_behaviors/Spin"
+      plugin: "nav2_behaviors::Spin"
     backup:
-      plugin: "nav2_behaviors/BackUp"
+      plugin: "nav2_behaviors::BackUp"
     drive_on_heading:
-      plugin: "nav2_behaviors/DriveOnHeading"
+      plugin: "nav2_behaviors::DriveOnHeading"
     wait:
-      plugin: "nav2_behaviors/Wait"
+      plugin: "nav2_behaviors::Wait"
     assisted_teleop:
-      plugin: "nav2_behaviors/AssistedTeleop"
+      plugin: "nav2_behaviors::AssistedTeleop"
     global_frame: odom
     robot_base_frame: base_link
     transform_tolerance: 0.1
