@@ -61,11 +61,9 @@ OS_VERSION="noble"
 IMAGE_NAME=${IMAGE_NAME:-ros2_jazzy_andino_gz}
 DOCKERFILE_PATH=$SCRIPT_FOLDER_PATH/Dockerfile
 
-USERID=$(id -u)
-USER=$(whoami)
+USER=ubuntu
 
 sudo docker build -t $IMAGE_NAME \
      --file $DOCKERFILE_PATH \
-     --build-arg USERID=$USERID \
      --build-arg USER=$USER \
      $CONTEXT_FOLDER_PATH

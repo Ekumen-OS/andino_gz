@@ -1,8 +1,7 @@
 FROM osrf/ros:jazzy-desktop-full
 
 # Arguments for building
-ARG USERID
-ARG USER
+ARG USER=ubuntu
 
 # Setup environment
 ENV TERM=linux
@@ -15,11 +14,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y $(cat requireme
 RUN rm requirements.txt
 
 # Create a user with passwordless sudo
-RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
-RUN adduser $USER sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
-RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
+# RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
+# RUN adduser $USER sudo
+# RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
+# RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
 
 #####################################
 # ROS2 dependencies built from source
