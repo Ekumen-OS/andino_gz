@@ -106,8 +106,8 @@ def generate_launch_description():
     spawn_robots_group = []
     more_than_one_robot = PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' > 1'])
     one_robot = PythonExpression([TextSubstitution(text=str(len(robots_list.keys()))), ' == 1'])
-    for robot_name in robots_list:
-        init_pose = robots_list[robot_name]
+    for robot_name, init_pose in robots_list.items():
+        init_pose = robot_name
         # As it is scoped and not forwarding, the launch configuration in this context gets cleared.
         robots_group = GroupAction(
             scoped=True, forwarding=False,
