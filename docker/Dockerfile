@@ -78,6 +78,11 @@ RUN sudo apt upgrade -y && sudo apt update && rosdep update
 # Defines a workspace folder.
 WORKDIR /home/$USER/ws
 
+# Custom ENV modification
+## Colorized output
+ENV RCUTILS_COLORIZED_OUTPUT=1
+ENV RCUTILS_CONSOLE_OUTPUT_FORMAT="[{time}] [{severity}] [{name}]: {message} [{function_name}() at {file_name}:{line_number}]"
+
 # Use fixuid as the entrypoint in quiet mode
 ENTRYPOINT ["fixuid", "-q"]
 
