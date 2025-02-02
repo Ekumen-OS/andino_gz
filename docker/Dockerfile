@@ -1,8 +1,7 @@
 FROM osrf/ros:jazzy-desktop-full
 
 # Arguments for building
-ARG USERID
-ARG USER
+ARG USER=ubuntu
 
 # Setup environment
 ENV TERM=linux
@@ -15,11 +14,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y $(cat requireme
 RUN rm requirements.txt
 
 # Create a user with passwordless sudo
-RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
-RUN adduser $USER sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
-RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
+# RUN adduser --uid $USERID --gecos "ekumen developer" --disabled-password $USER
+# RUN adduser $USER sudo
+# RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# RUN echo "export QT_X11_NO_MITSHM=1" >> /home/$USER/.bashrc
+# RUN echo "export IGN_IP=127.0.0.1" >> /home/$USER/.bashrc
 
 #####################################
 # ROS2 dependencies built from source
@@ -69,11 +68,20 @@ RUN mkdir -p /home/$USER/ws/src
 # Adds to bashrc the ros jazzy overlay sourcing.
 RUN echo "source /opt/ros/jazzy/setup.bash" >> /home/$USER/.bashrc
 
+# Source the setup.bash script from the working directory
+RUN echo "if [ -f ./install/setup.bash ]; then source ./install/setup.bash; fi" >> /home/$USER/.bashrc
+
+
 # Updates
 RUN sudo apt upgrade -y && sudo apt update && rosdep update
 
 # Defines a workspace folder.
 WORKDIR /home/$USER/ws
+
+# Custom ENV modification
+## Colorized output
+ENV RCUTILS_COLORIZED_OUTPUT=1
+ENV RCUTILS_CONSOLE_OUTPUT_FORMAT="[{time}] [{severity}] [{name}]: {message} [{function_name}() at {file_name}:{line_number}]"
 
 # Use fixuid as the entrypoint in quiet mode
 ENTRYPOINT ["fixuid", "-q"]
