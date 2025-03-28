@@ -59,7 +59,7 @@ done
 # Update the arguments to default values if needed.
 OS_VERSION="focal"
 IMAGE_NAME=${IMAGE_NAME:-ros2_humble_andino_gz}
-DOCKERFILE_PATH=$SCRIPT_FOLDER_PATH/Dockerfile
+DOCKERFILE_PATH=$SCRIPT_FOLDER_PATH/dockerfile
 
 USERID=$(id -u)
 USER=$(whoami)
