@@ -22,7 +22,7 @@ def generate_launch_description():
         'ros_bridge', default_value='True', description='Run ROS bridge node.')
     rviz_arg = DeclareLaunchArgument('rviz', default_value='True', description='Start RViz.')
     world_name_arg = DeclareLaunchArgument(
-        'world_name', default_value='depot.sdf', description='Name of the world to load. Match with map if using Nav2.')
+        'world_name', default_value='office.sdf', description='Name of the world to load. Match with map if using Nav2.')
     robots_arg = DeclareLaunchArgument(
         'robots', default_value="andino={x: 0., y: 0., z: 0.1, yaw: 0.};",
         description='Robots to spawn, multiple robots can be stated separated by a ; ')
@@ -34,7 +34,7 @@ def generate_launch_description():
         'nav2', default_value='False',
         description='Enable Nav2 Bringup.')
     map_name_arg = DeclareLaunchArgument(
-      'map', default_value="depot", description='Name of the map to load. It should match the world_name.'
+      'map', default_value="office", description='Name of the map to load. It should match the world_name.'
     )
     params_file_arg = DeclareLaunchArgument(
         'params_file',
