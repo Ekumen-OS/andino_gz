@@ -45,6 +45,18 @@ RUN echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> 
 # Updates
 RUN sudo apt upgrade -y && sudo apt update && rosdep update
 
+# Download models from fuel
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Desk"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/OpenRobotics/models/Office Chair"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/OpenRobotics/models/Dining Table"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/OpenRobotics/models/FoodCourtTable1"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/OpenRobotics/models/Depot"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/malbonico/models/Table"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/openrobotics/models/fridge/2"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/openrobotics/models/table/4"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/makerspet/models/tv_65in/1"
+RUN ign fuel download --url "https://fuel.gazebosim.org/1.0/openrobotics/models/table/4"
+
 # Defines a workspace folder.
 WORKDIR /home/$USER/ws
 

@@ -85,7 +85,7 @@ Using a different world:
   ros2 launch andino_gz andino_gz.launch.py world_name:=depot.sdf
   ```
 
-<img src="./docs/media/andino_gz.png" width="800"/>
+<img src="./docs/media/depot.png" width="800"/>
 
 
 Make sure to review the required topics using `ign topics` and `ros2 topic` CLI tools.
@@ -97,18 +97,18 @@ Also, consider using looking at the translation entries under `andino_gz/config/
 
   ```sh
   ros2 launch andino_gz andino_gz.launch.py robots:="
-       andino1={x: 0.0, y: 0.0, z: 0.1, yaw: 0.};
-       andino2={x: -0.4, y: 0.1, z: 0.1, yaw: 0.};
-       andino3={x: -0.4, y: -0.1, z: 0.1, yaw: 0.};
-       andino4={x: -0.8, y: 0.2, z: 0.1, yaw: 0.};
-       andino5={x: -0.8, y: -0.2, z: 0.1, yaw: 0.};
-       andino6={x: -0.8, y: 0.0, z: 0.1, yaw: 0.};"
+       andino1={x: 0.0, y: -1.0, z: 0.1, yaw: 0.};
+       andino2={x: -0.4, y: -0.9, z: 0.1, yaw: 0.};
+       andino3={x: -0.4, y: -1.1, z: 0.1, yaw: 0.};
+       andino4={x: -0.8, y: -0.8, z: 0.1, yaw: 0.};
+       andino5={x: -0.8, y: -1.2, z: 0.1, yaw: 0.};
+       andino6={x: -0.8, y: -1.0, z: 0.1, yaw: 0.};"
   ```
 
   - _Note1: You can add as many Andino as you want._
   - _Note2: If enabling Nav2(Using `nav2:=True`) try first with 2 robots and see how they perform in your system before using more robots._
 
-  <img src="./docs/media/andino_gz_multi_robot.png" width="800"/>
+  <img src="./docs/media/andino_gz_multi_robot_office.png" width="800"/>
 
   The launch file is in charge of:
    - Start Gazebo simulator with a defined world (See '--world_name' flag)
@@ -138,7 +138,7 @@ Also, consider using looking at the translation entries under `andino_gz/config/
     As before, you can launch as many robots as you want, for example launching two:
 
     ```sh
-    ros2 launch andino_gz andino_gz.launch.py nav2:=True robots:="andino1={x: 0.0, y: 0.0, z: 0.1, yaw: 0.};andino2={x: 1.0, y: 0.0, z: 0.1, yaw: 0.};" 
+    ros2 launch andino_gz andino_gz.launch.py nav2:=True robots:="andino1={x: 0.0, y: 0.0, z: 0.1, yaw: 0.};andino2={x: 0.0, y: 1.0, z: 0.1, yaw: 0.};"
     ```
 
     Once Gazebo window pops up, play the simulation using the gui.
@@ -156,9 +156,7 @@ Also, consider using looking at the translation entries under `andino_gz/config/
             Typically, as this is the default world-map, there is no need to indicate them.
 
 
-2. An RViz window will be spawned for each robot so it can be controlled independently. Use `2D Pose Estimate` to pass a hint to AMCL where is the initial point
-  
-    Note you have to do it per robot, namely, per RViz window.
+2. An RViz window will be spawned for each robot so it can be controlled independently. Use `2D Pose Estimate` to pass a hint to AMCL where is the initial point. Note you have to do it per robot, namely, per RViz window.
 
 
     <img src="./docs/media/andino_nav2_pose_estimate.png" width="800"/>
