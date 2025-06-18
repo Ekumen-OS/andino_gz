@@ -12,14 +12,29 @@ from nav2_common.launch import ReplaceString
 
 def generate_launch_description():
     pkg_andino_gz = get_package_share_directory('andino_gz')
-    bridge_config_file_path = os.path.join(pkg_andino_gz, 'config', 'bridge_config.yaml')
+    bridge_config_file_path = os.path.join(pkg_andino_gz, 'config',
+                                           'bridge_config.yaml')
+    bridge_config_camera_file_path = os.path.join(pkg_andino_gz, 'config',
+                                                  'bridge_config_camera.yaml')
+    bridge_config_lidar_file_path = os.path.join(pkg_andino_gz, 'config',
+                                                 'bridge_config_lidar.yaml')
 
     entity_arg = DeclareLaunchArgument(
-        'entity', default_value='andino', description='Name of the entity to bridge with Gazebo.')
+        'entity',
+        default_value='andino',
+        description='Name of the entity to bridge with Gazebo.')
 
     # A <entity> placeholder is used in the bridge config file to be replaced by the entity name.
     bridge_config = ReplaceString(
         source_file=bridge_config_file_path,
+        replacements={'<entity>': LaunchConfiguration('entity')},
+    )
+    bridge_config_camera = ReplaceString(
+        source_file=bridge_config_camera_file_path,
+        replacements={'<entity>': LaunchConfiguration('entity')},
+    )
+    bridge_config_lidar = ReplaceString(
+        source_file=bridge_config_lidar_file_path,
         replacements={'<entity>': LaunchConfiguration('entity')},
     )
 
@@ -31,8 +46,26 @@ def generate_launch_description():
             'config_file': bridge_config
         }],
     )
+    bridge_camera_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        output='screen',
+        parameters=[{
+            'config_file': bridge_config_camera
+        }],
+    )
+    bridge_lidar_node = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        output='screen',
+        parameters=[{
+            'config_file': bridge_config_lidar
+        }],
+    )
 
     return LaunchDescription([
         entity_arg,
         bridge_node,
+        bridge_camera_node,
+        bridge_lidar_node,
     ])

@@ -1,0 +1,12 @@
+# Placeholders to be rewritten by launch file:
+# - <entity> : Should be replaced by entity name: For example "andino", "andino_1", "andino_2".
+- ros_topic_name: "scan"
+  gz_topic_name: "/world/gazebo_world/model/<entity>/link/base_link/sensor/sensor_ray_front/scan"
+  ros_type_name: "sensor_msgs/msg/LaserScan"
+  gz_type_name: "gz.msgs.LaserScan"
+  direction: GZ_TO_ROS
+- ros_topic_name: "scan/points"
+  gz_topic_name: "/world/gazebo_world/model/<entity>/link/base_link/sensor/sensor_ray_front/scan/points"
+  ros_type_name: "sensor_msgs/msg/PointCloud2"
+  gz_type_name: "gz.msgs.PointCloudPacked"
+  direction: GZ_TO_ROS
