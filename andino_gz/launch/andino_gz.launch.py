@@ -40,6 +40,12 @@ def generate_launch_description():
         'params_file',
         default_value=PathJoinSubstitution([pkg_andino_gz, 'config', 'nav2_params.yaml']),
         description='Nav2 configuration. Full path to the ROS2 parameters file to use for all launched nodes')
+    autostart_arg = DeclareLaunchArgument(
+        'autostart',
+        default_value='False',
+        choices=['True', 'False'],
+        description='If true, the simulation starts automatically.',
+    )
 
     # Variables of launch file.
     rviz = LaunchConfiguration('rviz')
@@ -50,6 +56,7 @@ def generate_launch_description():
     gui_config_path = PathJoinSubstitution([pkg_andino_gz, 'config_gui', gui_config])
     nav2_flag = LaunchConfiguration('nav2')
     params_file = LaunchConfiguration('params_file')
+    autostart = LaunchConfiguration('autostart')
 
     # Obtains world path.
     world_path = PathJoinSubstitution([pkg_andino_gz, 'worlds', world_name])
@@ -61,7 +68,8 @@ def generate_launch_description():
     gz_args = TextJoin(
         substitutions=[
             world_path,
-            TextJoin(substitutions=["--gui-config", gui_config_path], separator=' '),
+            TextJoin(substitutions=["--gui-config ", gui_config_path]),
+            PythonExpression(['" -r" if "', autostart, '" == "True" else ""']),
         ],
         separator=' ',
     )
@@ -72,6 +80,7 @@ def generate_launch_description():
             'ros_bridge': ros_bridge,
             'world_name': world_name,
             'gui_config': gui_config,
+            'autostart': autostart,
         },
         actions=[
             # Gazebo Sim
@@ -233,6 +242,7 @@ def generate_launch_description():
     ld.add_action(nav2_arg)
     ld.add_action(map_name_arg)
     ld.add_action(params_file_arg)
+    ld.add_action(autostart_arg)
     ld.add_action(log_world_path)
     ld.add_action(log_map_path)
     ld.add_action(base_group)
