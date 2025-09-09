@@ -61,6 +61,29 @@
         </material>
       </visual>
     </link>
+    <link name='inside_doors'>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>meshes/inside_doors.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <render_order>1</render_order>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>1 1 1 1</specular> 
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/wood/wood_floor_diff_4k.jpg</albedo_map>
+              <normal_map>materials/textures/wood/wood_floor_nor_gl_4k.exr</normal_map>
+              <roughness_map>materials/textures/wood/wood_floor_rough_4k.exr</roughness_map>
+              <metalness>0.</metalness>
+            </metal>
+          </pbr>
+        </material>
+      </visual>
+    </link>
     <link name='door'>
       <visual name='visual'>
         <geometry>
@@ -70,6 +93,7 @@
           </mesh>
         </geometry>
         <material>
+          <render_order>1</render_order>
           <diffuse>1 1 1 1</diffuse>
           <specular>1 1 1 1</specular> 
           <pbr>
@@ -88,30 +112,14 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>meshes/window1.dae</uri>
+            <uri>meshes/windows.dae</uri>
           </mesh>
         </geometry>
         <!-- Idea of transparency taken from https://github.com/gazebosim/gz-rendering/issues/846#issuecomment-1549579115 -->
         <material>
-          <ambient>0.3  0.3  0.3  0.8</ambient>
-          <diffuse>0.7  0.7  0.7  0.8</diffuse>
-          <specular>1 1 1 0.8</specular>
-        </material>
-      </visual>
-    </link>
-    <link name='windows2'>
-      <visual name='visual'>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>meshes/window2.dae</uri>
-          </mesh>
-        </geometry>
-        <!-- Idea of transparency taken from https://github.com/gazebosim/gz-rendering/issues/846#issuecomment-1549579115 -->
-        <material>
-          <ambient>0.3  0.3  0.3  0.8</ambient>
-          <diffuse>0.7  0.7  0.7  0.8</diffuse>
-          <specular>1 1 1 0.8</specular>
+          <ambient>0.3  0.3  0.3  0.7</ambient>
+          <diffuse>0.7  0.7  0.7  0.7</diffuse>
+          <specular>1 1 1 0.7</specular>
         </material>
       </visual>
     </link>
@@ -144,6 +152,7 @@
           </mesh>
         </geometry>
         <material>
+          <render_order>1</render_order>
           <diffuse>1 1 1 1</diffuse>
           <specular>1 1 1 1</specular> 
           <pbr>
@@ -184,7 +193,7 @@
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>meshes/roof2.dae</uri>
+            <uri>meshes/roof.dae</uri>
           </mesh>
         </geometry>
         <material>
@@ -192,9 +201,9 @@
           <specular>0 0 0 0</specular> 
           <pbr>
             <metal>
-              <albedo_map>materials/textures/walls/TCom_Scifi_Panel_512_albedo.tif</albedo_map>
-              <normal_map>materials/textures/walls/TCom_Scifi_Panel_512_normal.tif</normal_map>
-              <roughness_map>materials/textures/walls/TCom_Scifi_Panel_512_roughness.tif</roughness_map>
+              <albedo_map>materials/textures/roof/TCom_Scifi_Panel_512_albedo.tif</albedo_map>
+              <normal_map>materials/textures/roof/TCom_Scifi_Panel_512_normal.tif</normal_map>
+              <roughness_map>materials/textures/roof/TCom_Scifi_Panel_512_roughness.tif</roughness_map>
               <metalness>0.</metalness>
             </metal>
           </pbr>
