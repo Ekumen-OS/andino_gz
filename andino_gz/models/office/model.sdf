@@ -61,35 +61,12 @@
         </material>
       </visual>
     </link>
-    <link name='inside_doors'>
+    <link name='doors'>
       <visual name='visual'>
         <geometry>
           <mesh>
             <scale>1 1 1</scale>
-            <uri>meshes/inside_doors.dae</uri>
-          </mesh>
-        </geometry>
-        <material>
-          <render_order>1</render_order>
-          <diffuse>1 1 1 1</diffuse>
-          <specular>1 1 1 1</specular> 
-          <pbr>
-            <metal>
-              <albedo_map>materials/textures/wood/wood_floor_diff_4k.jpg</albedo_map>
-              <normal_map>materials/textures/wood/wood_floor_nor_gl_4k.exr</normal_map>
-              <roughness_map>materials/textures/wood/wood_floor_rough_4k.exr</roughness_map>
-              <metalness>0.</metalness>
-            </metal>
-          </pbr>
-        </material>
-      </visual>
-    </link>
-    <link name='door'>
-      <visual name='visual'>
-        <geometry>
-          <mesh>
-            <scale>1 1 1</scale>
-            <uri>meshes/door.dae</uri>
+            <uri>meshes/doors.dae</uri>
           </mesh>
         </geometry>
         <material>
