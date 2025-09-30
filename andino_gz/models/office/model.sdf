@@ -175,12 +175,12 @@
         </geometry>
         <material>
           <diffuse>1 1 1 1</diffuse>
-          <specular>0 0 0 0</specular> 
+          <specular>0 0 0 0</specular>
           <pbr>
             <metal>
-              <albedo_map>materials/textures/roof/TCom_Scifi_Panel_512_albedo.tif</albedo_map>
-              <normal_map>materials/textures/roof/TCom_Scifi_Panel_512_normal.tif</normal_map>
-              <roughness_map>materials/textures/roof/TCom_Scifi_Panel_512_roughness.tif</roughness_map>
+              <albedo_map>materials/textures/roof/TCom_Scifi_Panel_512_albedo.png</albedo_map>
+              <normal_map>materials/textures/roof/TCom_Scifi_Panel_512_normal.png</normal_map>
+              <roughness_map>materials/textures/roof/TCom_Scifi_Panel_512_roughness.png</roughness_map>
               <metalness>0.</metalness>
             </metal>
           </pbr>
