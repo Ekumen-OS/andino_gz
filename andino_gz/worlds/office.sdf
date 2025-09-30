@@ -75,6 +75,7 @@
       </uri>
     </include>
     <light name='pointlight' type='point'>
+      <visualize>false</visualize>
       <pose>0.298336 0.092374 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -94,6 +95,7 @@
       </spot>
     </light>
     <light name='pointlight_0' type='point'>
+      <visualize>false</visualize>
       <pose>-12.6066 0.10986 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -113,6 +115,7 @@
       </spot>
     </light>
     <light name='pointlight_1' type='point'>
+      <visualize>false</visualize>
       <pose>-10.3089 -5.80035 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -132,6 +135,7 @@
       </spot>
     </light>
     <light name='pointlight_2' type='point'>
+      <visualize>false</visualize>
       <pose>11.3497 0.168535 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -151,6 +155,7 @@
       </spot>
     </light>
     <light name='pointlight_3' type='point'>
+      <visualize>false</visualize>
       <pose>-14.4146 5.39959 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -170,6 +175,7 @@
       </spot>
     </light>
     <light name='pointlight_4' type='point'>
+      <visualize>false</visualize>
       <pose>-11.1593 6.6516 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -189,6 +195,7 @@
       </spot>
     </light>
     <light name='pointlight_5' type='point'>
+      <visualize>false</visualize>
       <pose>-8.04798 5.92033 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -208,6 +215,7 @@
       </spot>
     </light>
     <light name='pointlight_6' type='point'>
+      <visualize>false</visualize>
       <pose>-8.84665 0.89593 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -227,6 +235,7 @@
       </spot>
     </light>
     <light name='pointlight_7' type='point'>
+      <visualize>false</visualize>
       <pose>-5.81174 0.712998 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -246,6 +255,7 @@
       </spot>
     </light>
     <light name='pointlight_8' type='point'>
+      <visualize>false</visualize>
       <pose>-4.82634 -1.80711 2 0 -0 0</pose>
       <cast_shadows>false</cast_shadows>
       <intensity>3</intensity>
@@ -265,6 +275,7 @@
       </spot>
     </light>
     <light name='pointlight_9' type='point'>
+      <visualize>false</visualize>
       <pose>-4.93364 -3.28308 2 0 -0 0</pose>
       <cast_shadows>false</cast_shadows>
       <intensity>1</intensity>
@@ -284,6 +295,7 @@
       </spot>
     </light>
     <light name='pointlight_10' type='point'>
+      <visualize>false</visualize>
       <pose>-4.85154 3.08325 2 0 -0 0</pose>
       <cast_shadows>false</cast_shadows>
       <intensity>1</intensity>
@@ -303,6 +315,7 @@
       </spot>
     </light>
     <light name='pointlight_11' type='point'>
+      <visualize>false</visualize>
       <pose>12.1819 -5.52248 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -322,6 +335,7 @@
       </spot>
     </light>
     <light name='pointlight_12' type='point'>
+      <visualize>false</visualize>
       <pose>7.78005 -5.25633 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -341,6 +355,7 @@
       </spot>
     </light>
     <light name='pointlight_13' type='point'>
+      <visualize>false</visualize>
       <pose>11.1536 5.4954 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -360,6 +375,7 @@
       </spot>
     </light>
     <light name='pointlight_14' type='point'>
+      <visualize>false</visualize>
       <pose>-13.8302 -6.40984 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -379,6 +395,7 @@
       </spot>
     </light>
     <light name='pointlight_15' type='point'>
+      <visualize>false</visualize>
       <pose>-6.52255 -6.97923 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -398,6 +415,7 @@
       </spot>
     </light>
     <light name='pointlight_16' type='point'>
+      <visualize>false</visualize>
       <pose>-3.5551 -4.37198 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -417,6 +435,7 @@
       </spot>
     </light>
     <light name='pointlight_17' type='point'>
+      <visualize>false</visualize>
       <pose>-3.55307 -8.09973 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -436,6 +455,7 @@
       </spot>
     </light>
     <light name='pointlight_18' type='point'>
+      <visualize>false</visualize>
       <pose>-13.7368 -2.52088 2 0 -0 0</pose>
       <cast_shadows>false</cast_shadows>
       <intensity>2</intensity>
@@ -455,6 +475,7 @@
       </spot>
     </light>
     <light name='pointlight_19' type='point'>
+      <visualize>false</visualize>
       <pose>-10.7579 5.24553 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>3</intensity>
@@ -474,6 +495,7 @@
       </spot>
     </light>
     <light name='pointlight_20' type='point'>
+      <visualize>false</visualize>
       <pose>-11.1375 2.33478 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -493,6 +515,7 @@
       </spot>
     </light>
     <light name='pointlight_21' type='point'>
+      <visualize>false</visualize>
       <pose>-4.08766 1.81411 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -512,6 +535,7 @@
       </spot>
     </light>
     <light name='pointlight_22' type='point'>
+      <visualize>false</visualize>
       <pose>0.85482 -3.62215 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -531,6 +555,7 @@
       </spot>
     </light>
     <light name='pointlight_23' type='point'>
+      <visualize>false</visualize>
       <pose>5.53131 -4.38355 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -550,6 +575,7 @@
       </spot>
     </light>
     <light name='pointlight_24' type='point'>
+      <visualize>false</visualize>
       <pose>5.79973 -2.89065 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -569,6 +595,7 @@
       </spot>
     </light>
     <light name='pointlight_25' type='point'>
+      <visualize>false</visualize>
       <pose>7.63509 -7.95752 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
@@ -588,6 +615,7 @@
       </spot>
     </light>
     <light name='pointlight_26' type='point'>
+      <visualize>false</visualize>
       <pose>14.917 -7.77253 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -607,6 +635,7 @@
       </spot>
     </light>
     <light name='pointlight_27' type='point'>
+      <visualize>false</visualize>
       <pose>14.1861 -2.17648 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -626,6 +655,7 @@
       </spot>
     </light>
     <light name='pointlight_28' type='point'>
+      <visualize>false</visualize>
       <pose>14.6044 4.02476 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>2</intensity>
@@ -645,6 +675,7 @@
       </spot>
     </light>
     <light name='pointlight_29' type='point'>
+      <visualize>false</visualize>
       <pose>6.19174 2.20681 2 0 -0 0</pose>
       <cast_shadows>true</cast_shadows>
       <intensity>1</intensity>
